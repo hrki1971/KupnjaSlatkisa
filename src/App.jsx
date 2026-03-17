@@ -4,7 +4,8 @@ import { Container } from 'react-bootstrap'
 import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constants'
-import SmjerPregled from './pages/smjerovi/SmjerPregled'
+import KategorijaPregled from './pages/kategorije/KategorijaPregled'
+import Home from './pages/Home'
 function App() {
   
 
@@ -13,7 +14,7 @@ function App() {
       <Izbornik />
       <Routes>
        <Route path={RouteNames.HOME} element={<Home />} />
-       <Route path={RouteNames.SMJEROVI} element={<SmjerPregled />} />
+       <Route path={RouteNames.KATEGORIJE} element={<KategorijaPregled />} />
       </Routes>
       <hr />
       &copy; Slatkiši
