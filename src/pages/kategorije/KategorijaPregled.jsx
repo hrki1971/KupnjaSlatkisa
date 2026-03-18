@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import KategorijeServis from "../../service/kategorije/KategorijeService"
+import KategorijeServis from "../../service/kategorije/KategorijaService"
 
 export default function KategorijaPregled(){
 
@@ -10,7 +10,7 @@ export default function KategorijaPregled(){
 
     },[])
     async function ucitajKategorije(){
-        await <KategorijeServis.get().then((odgovor)=>{
+        await KategorijeServis.get().then((odgovor)=>{
             setKategorije(odgovor.data)
         })
     }
@@ -21,7 +21,7 @@ export default function KategorijaPregled(){
                 <li>{kategorija.naziv}</li>
             ))}
         </ul>
-        Ovdje će se vidjeti kategorije
+   
         </>
     )
 }

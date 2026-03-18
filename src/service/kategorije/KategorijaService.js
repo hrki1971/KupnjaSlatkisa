@@ -1,5 +1,5 @@
 
-import {kategorije} from "./KategorijePodaci";
+import {kategorije} from "./KategorijaPodaci";
 
 
 async function get() {
