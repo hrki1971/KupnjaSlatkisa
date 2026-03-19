@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import KategorijeServis from "../../service/kategorije/KategorijaService"
+import { Table } from "react-bootstrap"
 
 export default function KategorijaPregled(){
 
@@ -16,11 +17,9 @@ export default function KategorijaPregled(){
     }
     return(
         <>
-        <ul>
-            {kategorije && kategorije.map((kategorija)=>(
-                <li>{kategorija.naziv}</li>
-            ))}
-        </ul>
+       <Table>
+        
+       </Table>
    
         </>
     )

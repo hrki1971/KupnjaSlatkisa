@@ -1,4 +1,4 @@
-export const IME_APLIKACIJE='Slatkisi'
+export const IME_APLIKACIJE='Slatkiši'
 
 export const RouteNames = {
     HOME: '/',

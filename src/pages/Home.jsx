@@ -5,7 +5,7 @@ export default function Home(){
     <>
     <h1>Dobrodošli na {IME_APLIKACIJE}</h1>
     <div>
-        Ovdje dođe slika
+       Ovdje dođe slika
     </div>
     </>
     )
