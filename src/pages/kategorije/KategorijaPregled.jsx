@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import KategorijeServis from "../../service/kategorije/KategorijaService"
 import { Table } from "react-bootstrap"
+import { NumericFormat } from "react-number-format"
 
 
 export default function KategorijaPregled(){
@@ -23,6 +24,7 @@ export default function KategorijaPregled(){
             <tr>
                 <th>Naziv</th>
                 <th>Opis</th>
+                <th>Cijena</th>
                 <th>Akcija</th>
             </tr>
         </thead>
@@ -31,6 +33,19 @@ export default function KategorijaPregled(){
                 <tr>
                     <td>{kategorija.naziv}</td>
                     <td>{kategorija.opis}</td>
+                    <td>
+                        <NumericFormat 
+                        value={kategorija.cijena}
+                        displayType={'text'}
+                        thousandSeparator='.'
+                        decimalSeparator=','
+                        suffix={' €'}
+                        decimalScale={2}
+                        fixedDecimalScale
+                    
+                        
+                        />
+                    </td>
                     <td></td>
                     
                     
