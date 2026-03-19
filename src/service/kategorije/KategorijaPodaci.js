@@ -9,5 +9,12 @@ export const kategorije = [
         sifra: 2,
         naziv: 'Lizalica',
         opis: 'Kvari zube'
+    },
+    {
+        sifra: 3,
+        naziv:'Čokolada',
+        opis:'Predobro'
     }
+        
+    
 ]
