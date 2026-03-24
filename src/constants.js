@@ -2,5 +2,6 @@ export const IME_APLIKACIJE='Slatkiši'
 
 export const RouteNames = {
     HOME: '/',
-    KATEGORIJE: '/kategorije' // ovo je ruta
+    KATEGORIJE: '/kategorije',
+    KATEGORIJE_NOVI: 'kategorije/novi'
 }
