@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constants'
 import KategorijaPregled from './pages/kategorije/KategorijaPregled'
 import Home from './pages/Home'
-import KategorijaNovi from './pages/kategorije/KategorijeNovi'
+import KategorijaNovi from './pages/kategorije/KategorijaNovi'
 function App() {
   
 
