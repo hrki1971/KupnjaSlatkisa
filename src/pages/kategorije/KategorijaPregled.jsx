@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import KategorijeServis from "../../service/kategorije/KategorijaService"
-import { Table } from "react-bootstrap"
+import KategorijeServis  from "../../service/kategorije/KategorijaService"
+import { Button, Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 
 
 export default function KategorijaPregled() {
 
+    const navigate = useNavigate()
     const [kategorije, setKategorije] = useState([])
 
     useEffect(() => {
@@ -15,13 +16,14 @@ export default function KategorijaPregled() {
 
     }, [])
     async function ucitajKategorije() {
-        await KategorijeServis.get().then((odgovor) => {
+        await KategorijaServis.get().then((odgovor) => {
             setKategorije(odgovor.data)
         })
     }
     return (
         <>
-            <Link to={RouteNames.KATEGORIJE_NOVI}>
+            <Link to={RouteNames.KATEGORIJE_NOVI}
+            className="btn btn-success w-100 mb-3 mt-3">
                 Dodaj novu kategoriju
             </Link>
             <Table>
@@ -51,7 +53,11 @@ export default function KategorijaPregled() {
 
                                 />
                             </td>
-                            <td></td>
+                            <td>
+                                <Button noClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>
+                                    Promjena
+                                </Button>
+                            </td>
 
 
 

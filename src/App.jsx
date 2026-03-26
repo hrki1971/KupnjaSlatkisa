@@ -7,6 +7,7 @@ import { RouteNames } from './constants'
 import KategorijaPregled from './pages/kategorije/KategorijaPregled'
 import Home from './pages/Home'
 import KategorijaNovi from './pages/kategorije/KategorijaNovi'
+import KategorijaPromjena from './pages/kategorije/KategorijaPromjena'
 function App() {
   
 
@@ -17,6 +18,7 @@ function App() {
        <Route path={RouteNames.HOME} element={<Home />} />
        <Route path={RouteNames.KATEGORIJE} element={<KategorijaPregled />} />
        <Route path={RouteNames.KATEGORIJE_NOVI} element={<KategorijaNovi />} />
+       <Route path={RouteNames.KATEGORIJE_PROMJENA} element={<KategorijaPromjena />} />
       </Routes>
       <hr />
       &copy; Slatkiši

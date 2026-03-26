@@ -1,9 +1,14 @@
 
+
 import {kategorije} from "./KategorijaPodaci";
 
 
 async function get() {
-    return {data:kategorije}
+    return {data: [...kategorije]}
+}
+
+async function getBySifra(sifra){
+    return {data: kategorije.find(s => s.sifra === parseInt(sifra))}
 }
 
 async function dodaj(kategorija){
@@ -15,7 +20,19 @@ async function dodaj(kategorija){
 
     kategorije.push(kategorija);
 }
+
+async function promjeni(sifra,kategorija){
+    const index = nadiIndex(sifra)
+    kategorije[index] = {...kategorije[index], ...kategorija}
+}
+
+function nadiIndex(sifra) {
+    return kategorije.findIndex(s => s.sifra === parseInt(sifra))
+    
+}
 export default {
     get,
-    dodaj
+    dodaj,
+    getBySifra,
+    promjeni
 }

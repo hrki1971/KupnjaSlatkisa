@@ -3,5 +3,6 @@ export const IME_APLIKACIJE='Slatkiši'
 export const RouteNames = {
     HOME: '/',
     KATEGORIJE: '/kategorije',
-    KATEGORIJE_NOVI: '/kategorije/novi'
+    KATEGORIJE_NOVI: '/kategorije/novi',
+    KATEGORIJE_PROMJENA: '/kategorije/:sifra'   
 }
