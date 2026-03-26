@@ -18,7 +18,7 @@ export default function KategorijaNovi() {
         const podaci = new FormData(e.target)
         dodaj({
             naziv: podaci.get('naziv'),
-            opis: parseInt(podaci.get('podaci')),
+            opis: podaci.get('opis'),
             cijena: parseFloat(podaci.get('cijena'))
         })
     }
@@ -35,7 +35,7 @@ export default function KategorijaNovi() {
 
                 <Form.Group controlId="opis">
                     <Form.Label>Opis</Form.Label>
-                    <Form.Control type="text" name="opis" step={1} />
+                    <Form.Control type="text" name="opis" />
 
 
                 </Form.Group>
