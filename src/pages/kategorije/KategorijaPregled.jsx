@@ -20,6 +20,13 @@ export default function KategorijaPregled() {
             setKategorije(odgovor.data)
         })
     }
+    async function obrisi(sifra) {
+        if(!confirm('Sigurno obrisati')){
+            return
+        }
+        await KategorijaService.obrisi(sifra)
+        ucitajKategorije
+    }
     return (
         <>
             <Link to={RouteNames.KATEGORIJE_NOVI}
@@ -56,6 +63,10 @@ export default function KategorijaPregled() {
                             <td>
                                 <Button onClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>
                                     Promjena
+                                </Button>
+                                &nbsp;&nbsp;
+                                <Button variant="danger" onClick={()=>{obrisi(kategorija.sifra)}}>
+                                    Obriši
                                 </Button>
                             </td>
 

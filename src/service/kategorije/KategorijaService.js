@@ -30,9 +30,15 @@ function nadiIndex(sifra) {
     return kategorije.findIndex(s => s.sifra === parseInt(sifra))
     
 }
+
+async function obrisi(sifra) {
+    const index = nadiIndex(sifra)
+    kategorije.slice(index,1)
+}
 export default {
     get,
     dodaj,
     getBySifra,
-    promjeni
+    promjeni,
+    obrisi
 }
