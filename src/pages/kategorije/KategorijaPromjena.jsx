@@ -7,26 +7,31 @@ import { useEffect } from "react";
 
 export default function KategorijaPromjena() {
     const navigate = useNavigate()
-    const parms = useParams()
-    const [kategorija,setKategorija] = useState({})
-    const [aktivan,setAktivan] = useState(false)
+    const params = useParams()
+    const [kategorija, setKategorija] = useState({})
 
     async function ucitajKategorija() {
-        await KategorijaService.getBySifra(parms.sifra).then((odgovor) => {
+        await KategorijaService.getBySifra(params.sifra).then((odgovor) => {
             const s = odgovor.data
 
-            s.datumPokretanja = s.datumPokretanja.substring(0,10)
 
             setKategorija(s)
 
-            setAktivan(s.aktivan)
         })
 
-        useEffect(()=>{
-            ucitajKategorija()
-        },[])
+
     }
 
+    useEffect(() => {
+        ucitajKategorija()
+    }, [])
+
+
+    async function promjeni(kategorija) {
+        await KategorijaService.promjeni(params.sifra, kategorija).then(() => {
+            navigate(RouteNames.KATEGORIJE)
+        })
+    }
 
     function odradiSubmit(e) {
         e.preventDefault()
@@ -40,23 +45,26 @@ export default function KategorijaPromjena() {
     return (
         <>
             <h3>
-                Unos nove kategorije
+                Promjena kategorije
             </h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlId="naziv">
                     <Form.Label>Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required />
+                    <Form.Control type="text" name="naziv" required
+                        defaultValue={kategorija.naziv} />
                 </Form.Group>
 
                 <Form.Group controlId="opis">
                     <Form.Label>Opis</Form.Label>
-                    <Form.Control type="text" name="opis" />
+                    <Form.Control type="text" name="opis"
+                        defaultValue={kategorija.opis} />
 
 
                 </Form.Group>
                 <Form.Group controlId="cijena">
                     <Form.Label>Cijena</Form.Label>
-                    <Form.Control type="number" name="cijena" step={0.01} />
+                    <Form.Control type="number" name="cijena" step={0.01}
+                        defaultValue={kategorija.cijena} />
 
                 </Form.Group>
 

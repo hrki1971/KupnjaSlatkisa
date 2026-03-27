@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import KategorijeServis  from "../../service/kategorije/KategorijaService"
 import { Button, Table } from "react-bootstrap"
 import { NumericFormat } from "react-number-format"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import KategorijaService from "../../service/kategorije/KategorijaService"
 
 
 export default function KategorijaPregled() {
@@ -16,7 +16,7 @@ export default function KategorijaPregled() {
 
     }, [])
     async function ucitajKategorije() {
-        await KategorijaServis.get().then((odgovor) => {
+        await KategorijaService.get().then((odgovor) => {
             setKategorije(odgovor.data)
         })
     }
@@ -54,7 +54,7 @@ export default function KategorijaPregled() {
                                 />
                             </td>
                             <td>
-                                <Button noClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>
+                                <Button onClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>
                                     Promjena
                                 </Button>
                             </td>
