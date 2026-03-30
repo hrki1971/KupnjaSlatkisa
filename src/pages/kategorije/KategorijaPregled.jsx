@@ -25,7 +25,7 @@ export default function KategorijaPregled() {
             return
         }
         await KategorijaService.obrisi(sifra)
-        ucitajKategorije
+        ucitajKategorije()
     }
     return (
         <>
