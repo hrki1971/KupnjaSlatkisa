@@ -19,8 +19,7 @@ export default function KategorijaNovi() {
         dodaj({
             naziv: podaci.get('naziv'),
             opis: podaci.get('opis'),
-            cijena: parseFloat(podaci.get('cijena')),
-            aktivan: podaci.get('aktivan') === 'on'
+            cijena: parseFloat(podaci.get('cijena'))
         })
     }
     return (
@@ -46,9 +45,6 @@ export default function KategorijaNovi() {
 
                 </Form.Group>
 
-                <Form.Group controlId="aktivan">
-                    <Form.Check label="Aktivan" name="aktivan" />
-                </Form.Group>
 
                 <hr style={{ margiTop: '50px', border: '0' }} />
 

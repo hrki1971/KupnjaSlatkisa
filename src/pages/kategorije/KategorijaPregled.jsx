@@ -21,6 +21,7 @@ export default function KategorijaPregled() {
         })
     }
     async function obrisi(sifra) {
+      // debugger
         if(!confirm('Sigurno obrisati')){
             return
         }

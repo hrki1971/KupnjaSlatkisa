@@ -33,7 +33,7 @@ function nadiIndex(sifra) {
 
 async function obrisi(sifra) {
     const index = nadiIndex(sifra)
-    kategorije.slice(index,1)
+    kategorije.splice(index,1)
 }
 export default {
     get,
