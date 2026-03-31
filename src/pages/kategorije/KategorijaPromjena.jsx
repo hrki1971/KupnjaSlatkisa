@@ -10,8 +10,13 @@ export default function KategorijaPromjena() {
     const params = useParams()
     const [kategorija, setKategorija] = useState({})
 
+
     async function ucitajKategorija() {
         await KategorijaService.getBySifra(params.sifra).then((odgovor) => {
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
             const s = odgovor.data
 
 

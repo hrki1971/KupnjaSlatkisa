@@ -6,3 +6,6 @@ export const RouteNames = {
     KATEGORIJE_NOVI: '/kategorije/novi',
     KATEGORIJE_PROMJENA: '/kategorije/:sifra'   
 }
+
+// memorija, localStorage, firebase
+export const DATA_SOURCE = 'localStrorage'
