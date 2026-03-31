@@ -17,11 +17,17 @@ export default function KategorijaPregled() {
     }, [])
     async function ucitajKategorije() {
         await KategorijaService.get().then((odgovor) => {
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+            }
             setKategorije(odgovor.data)
         })
     }
     async function obrisi(sifra) {
       // debugger
+      
+        
+      
         if(!confirm('Sigurno obrisati')){
             return
         }

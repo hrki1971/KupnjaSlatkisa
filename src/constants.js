@@ -8,4 +8,4 @@ export const RouteNames = {
 }
 
 // memorija, localStorage, firebase
-export const DATA_SOURCE = 'localStrorage'
+export const DATA_SOURCE = 'localStorage'
