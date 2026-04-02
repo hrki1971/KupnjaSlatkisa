@@ -40,7 +40,7 @@ export default function KategorijaPregled() {
             className="btn btn-success w-100 mb-3 mt-3">
                 Dodaj novu kategoriju
             </Link>
-            <Table>
+            <Table striped border hover>
                 <thead>
                     <tr>
                         <th>Naziv</th>
