@@ -8,6 +8,11 @@ import KategorijaPregled from './pages/kategorije/KategorijaPregled'
 import Home from './pages/Home'
 import KategorijaNovi from './pages/kategorije/KategorijaNovi'
 import KategorijaPromjena from './pages/kategorije/KategorijaPromjena'
+
+import SlatkisPregled from './pages/slatkisi/SlatkisPregled'
+import SlatkisNovi from './pages/slatkisi/SlatkisNovi'
+import SlatkisPromjena from './pages/slatkisi/SlatkisPromjena'
+
 function App() {
   
 
@@ -20,6 +25,10 @@ function App() {
        <Route path={RouteNames.KATEGORIJE} element={<KategorijaPregled />} />
        <Route path={RouteNames.KATEGORIJE_NOVI} element={<KategorijaNovi />} />
        <Route path={RouteNames.KATEGORIJE_PROMJENA} element={<KategorijaPromjena />} />
+
+       <Route path={RouteNames.SLATKIŠI} element={<SlatkisPregled />} />
+       <Route path={RouteNames.SLATKIŠI_NOVI} element={<SlatkisNovi />} />
+       <Route path={RouteNames.SLATKIŠI_PROMJENA} element={<SlatkisPromjena />} />
       </Routes>
       </Container>
       <hr />
