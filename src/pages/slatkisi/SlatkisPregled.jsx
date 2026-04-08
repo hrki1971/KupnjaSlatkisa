@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import GrupaService from "../../services/grupe/GrupaService"
-import KategorijaService from "../../services/kategorije/SmjerService"
+import KategorijaService from "../../service/kategorije/KategorijaService"
 import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 
 export default function SlatkisPregled(){
 
@@ -18,7 +18,7 @@ export default function SlatkisPregled(){
     },[])
 
     async function ucitajSlatkise() {
-        await GrupaService.get().then((odgovor)=>{
+        await SlatkisiService.get().then((odgovor)=>{
             if(!odgovor.success){
                 alert('Nije implementiran servis')
                 return
@@ -39,8 +39,8 @@ export default function SlatkisPregled(){
 
     async function brisanje(sifra) {
         if (!confirm('Sigurno obrisati?')) return;
-        await SlatkisService.obrisi(sifra);
-        await SlatkisService.get().then((odgovor)=>{
+        await SlatkisiService.obrisi(sifra);
+        await SlatkisiService.get().then((odgovor)=>{
             setSlatkise(odgovor.data)
         })
     }

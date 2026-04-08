@@ -1,4 +1,4 @@
-import { slatkisi } from "./SlatkisPodaci";
+import { slatkisi } from "./SlatkisiPodaci";
 
 
 // 1/4 Read od CRUD

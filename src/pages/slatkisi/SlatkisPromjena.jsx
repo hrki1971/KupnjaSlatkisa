@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import SlatkisiService from "../../services/slatkisi/SlatkisService"
-import KategorijaService from "../../services/kategorije/KategorijaService"
+import KategorijaService from "../../service/kategorije/KategorijaService"
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap"
 import { RouteNames } from "../../constants"
-import KategorijaService from "../../service/kategorije/KategorijaService"
+import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 
 export default function SlatkisPromjena(){
 

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import { Link, useNavigate } from "react-router-dom"
-import SlatkisService from "../../services/slatkisi/GrupaService"
-import KategorijaService from "../../services/kategorije/KategorijaService"
+import KategorijaService from "../../service/kategorije/KategorijaService"
+import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 
 export default function SlatkisNovi() {
 
@@ -25,7 +25,7 @@ export default function SlatkisNovi() {
     }
 
     async function dodaj(slatkis) {
-        await SlatkisService.dodaj(slatkis).then(() => {
+        await SlatkisiService.dodaj(slatkis).then(() => {
             navigate(RouteNames.SLATKIŠI)
         })
     }

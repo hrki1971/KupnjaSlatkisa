@@ -1,5 +1,5 @@
 
-import SlatkisServiceMemorija from "./SlatkisServiceMemorija";
+import SlatkisiServiceMemorija from "./SlatkisiServiceMemorija";
 import { DATA_SOURCE } from "../../constants";
 import SlatkisiServiceLocalStorage from "./SlatkisiServiceLocalStorage";
 
@@ -8,7 +8,7 @@ let Servis = null;
 // 1. Odabir servisa
 switch (DATA_SOURCE) {
     case 'memorija':
-        Servis = SlatkisServiceMemorija;
+        Servis = SlatkisiServiceMemorija;
         break;
     case 'localStorage':
         Servis = SlatkisiServiceLocalStorage;
