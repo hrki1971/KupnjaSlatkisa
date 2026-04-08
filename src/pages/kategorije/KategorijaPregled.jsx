@@ -37,7 +37,7 @@ export default function KategorijaPregled() {
     return (
         <>
             <Link to={RouteNames.KATEGORIJE_NOVI}
-            className="btn btn-success w-100 mb-3 mt-3">
+            className="btn btn-success w-100 mb-3 mt-3"> 
                 Dodaj novu kategoriju
             </Link>
             <Table striped border hover>
@@ -52,8 +52,8 @@ export default function KategorijaPregled() {
                 <tbody>
                     {kategorije && kategorije.map((kategorija) => (
                         <tr key={kategorija.sifra}>
-                            <td>{kategorija.naziv}</td>
-                            <td>{kategorija.opis}</td>
+                            <td className="lead">{kategorija.naziv}</td>
+                            <td className="lead">{kategorija.opis}</td>
                             <td>
                                 <NumericFormat
                                     value={kategorija.cijena}

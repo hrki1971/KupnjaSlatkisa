@@ -72,7 +72,7 @@ export default function SlatkisNovi() {
                 <Container className="mt-4">
                     <Card className="shadow-sm">
                         <Card.Body>
-                            <Card.Title className="mb-4">Podaci o grupi</Card.Title>
+                            <Card.Title className="mb-4">Podaci o slatkišu</Card.Title>
 
                             {/* Naziv - Pun širina na svim ekranima */}
                             <Row>
@@ -82,7 +82,7 @@ export default function SlatkisNovi() {
                                         <Form.Control
                                             type="text"
                                             name="naziv"
-                                            placeholder="Unesite naziv grupe"
+                                            placeholder="Unesite naziv slatkiša"
                                             required
                                         />
                                     </Form.Group>
@@ -114,7 +114,7 @@ export default function SlatkisNovi() {
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Dodaj novi slatkisa
+                                    Dodaj novi slatkiš
                                 </Button>
                             </div>
                         </Card.Body>

@@ -44,7 +44,7 @@ export default function KategorijaNovi() {
     <Container className="mt-4">
         <Card className="shadow-sm">
                         <Card.Body>
-                            <Card.Title className="mb-4">Unos nove kategorije</Card.Title>
+                            <Card.Title className="mb-4">Podaci o novoj kategoriji</Card.Title>
            <Row>
             <Col xs={12}>
                 <Form.Group controlId="naziv">
