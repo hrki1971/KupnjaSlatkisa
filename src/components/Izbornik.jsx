@@ -25,7 +25,7 @@ export default function Izbornik() {
                             >Kategorije</NavDropdown.Item>
 
                         <NavDropdown.Item
-                            onClick={()=>navigate(RouteNames.SLATKIŠI)}
+                            onClick={()=>navigate(RouteNames.SLATKISI)}
                         >
                             Slatkiši
                         </NavDropdown.Item>

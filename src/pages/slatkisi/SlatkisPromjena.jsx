@@ -39,7 +39,7 @@ export default function SlatkisPromjena(){
 
     async function promjeni(slatkis) {
         await SlatkisiService.promjeni(params.sifra,slatkis).then(()=>{
-            navigate(RouteNames.GRUPE)
+            navigate(RouteNames.SLATKISI)
         })
     }
 
@@ -124,7 +124,7 @@ export default function SlatkisPromjena(){
 
                             {/* Gumbi za akciju */}
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.GRUPE} className="btn btn-danger px-4">
+                                <Link to={RouteNames.SLATKISI} className="btn btn-danger px-4">
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">

@@ -6,9 +6,9 @@ export const RouteNames = {
     KATEGORIJE_NOVI: '/kategorije/novi',
     KATEGORIJE_PROMJENA: '/kategorije/:sifra' ,
     
-    SLATKIŠI: '/slatkisi',
-    SLATKIŠI_NOVI: '/slatkisi/novi',
-    SLATKIŠI_PROMJENA: '/slatkisi/sifra'
+    SLATKISI: '/slatkisi',
+    SLATKISI_NOVI: '/slatkisi/novi',
+    SLATKISI_PROMJENA: '/slatkisi/:sifra'
 }
 
 // memorija, localStorage, firebase

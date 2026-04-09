@@ -26,9 +26,9 @@ function App() {
        <Route path={RouteNames.KATEGORIJE_NOVI} element={<KategorijaNovi />} />
        <Route path={RouteNames.KATEGORIJE_PROMJENA} element={<KategorijaPromjena />} />
 
-       <Route path={RouteNames.SLATKIŠI} element={<SlatkisPregled />} />
-       <Route path={RouteNames.SLATKIŠI_NOVI} element={<SlatkisNovi />} />
-       <Route path={RouteNames.SLATKIŠI_PROMJENA} element={<SlatkisPromjena />} />
+       <Route path={RouteNames.SLATKISI} element={<SlatkisPregled />} />
+       <Route path={RouteNames.SLATKISI_NOVI} element={<SlatkisNovi />} />
+       <Route path={RouteNames.SLATKISI_PROMJENA} element={<SlatkisPromjena />} />
       </Routes>
       </Container>
       <hr />
