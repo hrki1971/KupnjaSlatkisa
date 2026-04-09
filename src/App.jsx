@@ -12,6 +12,7 @@ import KategorijaPromjena from './pages/kategorije/KategorijaPromjena'
 import SlatkisPregled from './pages/slatkisi/SlatkisPregled'
 import SlatkisNovi from './pages/slatkisi/SlatkisNovi'
 import SlatkisPromjena from './pages/slatkisi/SlatkisPromjena'
+import GeneriranjePodataka from './pages/kategorije/GeneriranjePodataka'
 
 function App() {
   
@@ -29,6 +30,8 @@ function App() {
        <Route path={RouteNames.SLATKISI} element={<SlatkisPregled />} />
        <Route path={RouteNames.SLATKISI_NOVI} element={<SlatkisNovi />} />
        <Route path={RouteNames.SLATKISI_PROMJENA} element={<SlatkisPromjena />} />
+
+       <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
       </Routes>
       </Container>
       <hr />

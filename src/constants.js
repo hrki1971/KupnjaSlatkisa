@@ -8,7 +8,9 @@ export const RouteNames = {
     
     SLATKISI: '/slatkisi',
     SLATKISI_NOVI: '/slatkisi/novi',
-    SLATKISI_PROMJENA: '/slatkisi/:sifra'
+    SLATKISI_PROMJENA: '/slatkisi/:sifra',
+
+    GENERIRANJE_PODATAKA: '/generiraj-podatke'
 }
 
 // memorija, localStorage, firebase
