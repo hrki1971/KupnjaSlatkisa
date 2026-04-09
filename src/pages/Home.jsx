@@ -18,8 +18,8 @@ export default function Home(){
                 const kategorijeRezultat = await KategorijaService.get();
                 const slatkisi = await SlatkisiService.get();
 
-                setBrojKategorija(kategorijeRezultat.length);
-                setBrojSlatkisa(slatkisi.length);
+                setBrojKategorija(kategorijeRezultat.data.length);
+                setBrojSlatkisa(slatkisi.data.length);
             } catch (error) {
                 console.error("Greška pri dohvaćanju podataka:", error);    
             }

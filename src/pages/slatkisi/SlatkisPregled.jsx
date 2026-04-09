@@ -9,7 +9,7 @@ export default function SlatkisPregled(){
 
     const navigate = useNavigate()
 
-    const [slatkisi, setSlatkise] = useState([])
+    const [slatkisi, setSlatkisi] = useState([])
     const [kategorije, setKategorije] = useState([])
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ export default function SlatkisPregled(){
                 alert('Nije implementiran servis')
                 return
             }
-            setGrupe(odgovor.data)
+            setSlatkisi(odgovor.data)
         })
     }
 
@@ -41,7 +41,7 @@ export default function SlatkisPregled(){
         if (!confirm('Sigurno obrisati?')) return;
         await SlatkisiService.obrisi(sifra);
         await SlatkisiService.get().then((odgovor)=>{
-            setSlatkise(odgovor.data)
+            setSlatkisi(odgovor.data)
         })
     }
 
