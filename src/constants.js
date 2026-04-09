@@ -1,4 +1,4 @@
-export const IME_APLIKACIJE='Slatkiši'
+export const IME_APLIKACIJE='Slatkisi'
 
 export const RouteNames = {
     HOME: '/',
@@ -6,9 +6,9 @@ export const RouteNames = {
     KATEGORIJE_NOVI: '/kategorije/novi',
     KATEGORIJE_PROMJENA: '/kategorije/:sifra' ,
     
-    SLATKIŠI: '/slatkiši',
-    SLATKIŠI_NOVI: '/slatkiši/novi',
-    SLATKIŠI_PROMJENA: '/slatkiši/sifra'
+    SLATKIŠI: '/slatkisi',
+    SLATKIŠI_NOVI: '/slatkisi/novi',
+    SLATKIŠI_PROMJENA: '/slatkisi/sifra'
 }
 
 // memorija, localStorage, firebase
