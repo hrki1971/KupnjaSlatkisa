@@ -30,7 +30,7 @@ export default function GeneriranjePodataka() {
         for (let i = 0; i < broj; i++) {
             await KategorijaService.dodaj({
                 naziv: naziviKategorija[i % naziviKategorija.length] + (i >= naziviKategorija.length ? ` ${Math.floor(i / naziviKategorija.length) + 1}` : ''),
-                opis: opisKategorija[i % opisKategorija.length] + (i >=opisKategorija.length ? ` ${Math.floor(i / opisKategorija.length) + 1}` : ''),
+                opis: faker.person.lastName() + ' slatkiš',
                 cijena: faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)
                 
                 
@@ -50,7 +50,7 @@ export default function GeneriranjePodataka() {
             const randomKategorija = kategorije[faker.number.int({min: 0,max:kategorije.length -1})]; 
 
             const slatkisi = {
-                naziv:randomKategorija.naziv.trim().split(/\s+/).slice(0.2).map(rijec => rijec[0]).join('').tuUpperCase(),
+                naziv:faker.person.firstName() + ' candy',
                 kategorija:randomKategorija.sifra
             };
 
@@ -120,8 +120,8 @@ export default function GeneriranjePodataka() {
             const rezultat = await SlatkisiService.get();
             const slatkisi = rezultat.data;
             
-            for (const slatkisi of slatkisi) {
-                await SlatkisiService.obrisi(slatkisi.sifra);
+            for (const slatkis of slatkisi) {
+                await SlatkisiService.obrisi(slatkis.sifra);
             }
 
             setPoruka({
