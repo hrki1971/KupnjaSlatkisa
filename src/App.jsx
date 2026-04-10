@@ -12,7 +12,7 @@ import KategorijaPromjena from './pages/kategorije/KategorijaPromjena'
 import SlatkisPregled from './pages/slatkisi/SlatkisPregled'
 import SlatkisNovi from './pages/slatkisi/SlatkisNovi'
 import SlatkisPromjena from './pages/slatkisi/SlatkisPromjena'
-import GeneriranjePodataka from './pages/kategorije/GeneriranjePodataka'
+import GeneriranjePodataka from './pages/GeneriranjePodataka'
 
 function App() {
   
