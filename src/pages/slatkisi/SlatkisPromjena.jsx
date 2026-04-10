@@ -80,7 +80,7 @@ export default function SlatkisPromjena(){
 
     return(
          <>
-            <h3>Promjena slatkisa</h3>
+            <h3>Promjena slatkiša</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
                     <Card className="shadow-sm">
@@ -128,7 +128,7 @@ export default function SlatkisPromjena(){
                                     Odustani
                                 </Link>
                                 <Button type="submit" variant="success">
-                                    Promjeni slatkis
+                                    Promjeni slatkiš
                                 </Button>
                             </div>
                         </Card.Body>

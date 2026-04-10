@@ -67,7 +67,7 @@ export default function SlatkisNovi() {
 
     return (
         <>
-            <h3>Unos novog slatkisa</h3>
+            <h3>Unos novog slatkiša</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
                     <Card className="shadow-sm">

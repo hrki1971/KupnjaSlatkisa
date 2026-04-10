@@ -54,7 +54,7 @@ export default function SlatkisPregled(){
         <>
         <Link to={RouteNames.SLATKIŠI_NOVI}
         className="btn btn-success w-100 my-3">
-            Dodavanje novog slatkisa
+            Dodavanje novog slatkiša
         </Link>
         <Table striped bordered hover>
             <thead>
