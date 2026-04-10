@@ -30,7 +30,7 @@ export default function GeneriranjePodataka() {
         for (let i = 0; i < broj; i++) {
             await KategorijaService.dodaj({
                 naziv: naziviKategorija[i % naziviKategorija.length] + (i >= naziviKategorija.length ? ` ${Math.floor(i / naziviKategorija.length) + 1}` : ''),
-                opis: opisiKategorija[i % opisiKategorija.length] + (i >=opisiKategorija.length ? ` ${Math.floor(i / opisiKategorija.length) + 1}` : ''),
+                opis: opisKategorija[i % opisKategorija.length] + (i >=opisKategorija.length ? ` ${Math.floor(i / opisKategorija.length) + 1}` : ''),
                 cijena: faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)
                 
                 
@@ -39,15 +39,26 @@ export default function GeneriranjePodataka() {
     };
 
     const generirajSlatkise = async (broj) => {
-        for (let i = 0; i < broj; i++) {
-            const slatkisi = {
-                naziv: i%2===0? faker.person.firstName('male') : faker.person.firstName('female'),
-                kategorija: faker.person.lastName(),
-                opis: faker.lorem.sentence()
-                
-            };
-            await SlatkisiService.dodaj(slatkisi);
+
+        const rezultatKategorije = await KategorijaService.get();
+        const kategorije = rezultatKategorije.data;
+
+        if(kategorije.length === 0) {
+            throw new Error('Nema dostupnih kategorija.Prvo generirajte kategorije.');
         }
+        for (let i = 0; i < broj; i++) {
+            const randomKategorija = kategorije[faker.number.int({min: 0,max:kategorije.length -1})]; 
+
+            const slatkisi = {
+                naziv:randomKategorija.naziv.trim().split(/\s+/).slice(0.2).map(rijec => rijec[0]).join('').tuUpperCase(),
+                kategorija:randomKategorija.sifra
+            };
+
+               await SlatkisiService.dodaj(slatkisi); 
+            
+            }
+            
+        
     };
 
     
