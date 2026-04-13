@@ -52,7 +52,7 @@ export default function SlatkisPregled(){
 
     return(
         <>
-        <Link to={RouteNames.SLATKIŠI_NOVI}
+        <Link to={RouteNames.SLATKISI_NOVI}
         className="btn btn-success w-100 my-3">
             Dodavanje novog slatkiša
         </Link>
