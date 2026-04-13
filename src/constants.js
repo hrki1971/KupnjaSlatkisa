@@ -10,6 +10,10 @@ export const RouteNames = {
     SLATKISI_NOVI: '/slatkisi/novi',
     SLATKISI_PROMJENA: '/slatkisi/:sifra',
 
+    ALERGENI: '/alergeni',
+    ALERGENI_NOVI: '/alergeni/novi',
+    ALERGENI_PROMJENA: '/alergeni/:sifra',
+
     GENERIRANJE_PODATAKA: '/generiraj-podatke'
 }
 

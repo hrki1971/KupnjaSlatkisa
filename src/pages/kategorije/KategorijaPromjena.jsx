@@ -73,7 +73,7 @@ export default function KategorijaPromjena() {
 
                 </Form.Group>
 
-                <hr style={{ margiTop: '50px', border: '0' }} />
+                <hr style={{ marginTop: '50px', border: '0' }} />
 
                 <Row>
                     <Col>

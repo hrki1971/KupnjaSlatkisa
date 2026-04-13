@@ -26,7 +26,7 @@ export default function SlatkisNovi() {
 
     async function dodaj(slatkis) {
         await SlatkisiService.dodaj(slatkis).then(() => {
-            navigate(RouteNames.SLATKIŠI)
+            navigate(RouteNames.SLATKISI)
         })
     }
 

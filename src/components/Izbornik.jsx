@@ -30,7 +30,15 @@ export default function Izbornik() {
                             Slatkiši
                         </NavDropdown.Item>
 
+                        <NavDropdown.Item
+                            onClick={()=>navigate(RouteNames.ALERGENI)}
+                        >
+                            Alergeni
+                        </NavDropdown.Item>
+
                         <NavDropdown.Divider />
+
+                        
 
                         <NavDropdown.Item
                             onClick={()=>navigate(RouteNames.GENERIRANJE_PODATAKA)}

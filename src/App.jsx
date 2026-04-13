@@ -8,6 +8,9 @@ import KategorijaPregled from './pages/kategorije/KategorijaPregled'
 import Home from './pages/Home'
 import KategorijaNovi from './pages/kategorije/KategorijaNovi'
 import KategorijaPromjena from './pages/kategorije/KategorijaPromjena'
+import AlergenPregled from './pages/alergeni/AlergenPregled'
+import AlergenNovi from './pages/alergeni/AlergenNovi'
+import AlergenPromjena from './pages/alergeni/AlergenPromjena'
 
 import SlatkisPregled from './pages/slatkisi/SlatkisPregled'
 import SlatkisNovi from './pages/slatkisi/SlatkisNovi'
@@ -30,8 +33,12 @@ function App() {
        <Route path={RouteNames.SLATKISI} element={<SlatkisPregled />} />
        <Route path={RouteNames.SLATKISI_NOVI} element={<SlatkisNovi />} />
        <Route path={RouteNames.SLATKISI_PROMJENA} element={<SlatkisPromjena />} />
+       <Route path={RouteNames.ALERGENI} element={<AlergenPregled />} />
+       <Route path={RouteNames.ALERGENI_NOVI} element={<AlergenNovi />} />
+       <Route path={RouteNames.ALERGENI_PROMJENA} element={<AlergenPromjena />} />
 
        <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
+
       </Routes>
       </Container>
       <hr />
