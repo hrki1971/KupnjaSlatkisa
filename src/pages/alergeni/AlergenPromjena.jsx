@@ -1,7 +1,7 @@
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
-import AlergenService from "../../service/alergeni/AlergeniService";
+import AlergenService from "../../service/alergeni/AlergenService";
 import { useEffect, useState } from "react";
 
 export default function AlergenPromjena(){
