@@ -3,12 +3,14 @@ import { Button, Form, Alert, Container, Row, Col } from 'react-bootstrap';
 import { Faker, hr } from '@faker-js/faker';
 import KategorijaService from '../service/kategorije/KategorijaService';
 import SlatkisiService from '../service/slatkisi/SlatkisiService';
+import AlergenService from '../service/alergeni/AlergenService';
 
 
 
 export default function GeneriranjePodataka() {
     const [brojKategorija, setBrojKategorija] = useState(5);
     const [brojSlatkisa, setBrojSlatkisa] = useState(20);
+    const [brojAlergena, setBrojAlergena] = useState(10);
     
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -61,7 +63,24 @@ export default function GeneriranjePodataka() {
         
     };
 
-    
+    const generirajAlergene = async (broj) => {
+
+        const rezultatSlatkise = await SlatkisiService.get();
+        const slatkisi = rezultatSlatkise.data;
+
+        if(slatkisi.length === 0) {
+            throw new Error('Nema dostupnih slatkisa.Prvo generirajte slatkise.');
+
+    }
+    for (let i = 0; i < broj; i++) {
+        const randomSlatkisi = slatkisi[faker.number.int({min: 0,max:slatkisi.length -1})]
+        // Generiraj alergene
+        const alergen = {
+            naziv: faker.food.ingredient() + ' alergen',
+            slatkis: randomSlatkisi.sifra
+        };
+        await SlatkisiService.dodajAlergen(alergen);
+    }
 
     const handleGenerirajKategorije = async (e) => {
         e.preventDefault();
