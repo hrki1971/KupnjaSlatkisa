@@ -81,6 +81,7 @@ export default function GeneriranjePodataka() {
         };
         await SlatkisiService.dodajAlergen(alergen);
     }
+    };
 
     const handleGenerirajKategorije = async (e) => {
         e.preventDefault();
@@ -255,6 +256,33 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
+                <Col md={4}>
+                    <Form onSubmit={handleGenerirajAlergene}>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Broj alergena</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="100"
+                                value={brojAlergena}
+                                onChange={(e) => setBrojAlergena(parseInt(e.target.value))}
+                                disabled={loading}
+                            />
+                            <Form.Text className='text-muted'>
+                                Unesite broj alergena (1-100)
+                                </Form.Text>
+                        </Form.Group>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? 'Generiranje...' : 'Generiraj alergene'}
+                        </Button>
+
+                    </Form>
+                </Col>
                 
             </Row>
 
@@ -291,6 +319,16 @@ export default function GeneriranjePodataka() {
                         {loading ? 'Brisanje...' : 'Obriši sve slatkise'}
                     </Button>
                 </Col>
+                    <Col md={4}>
+                        <Button
+                            variant="danger"
+                            onClick={handleObrisiAlergene}
+                            disabled={loading}
+                            className="w-100 mb-2"
+                        >
+                            {loading ? 'Brisanje...' : 'Obriši sve alergene'}
+                        </Button>
+                    </Col>
                 
             </Row>
 

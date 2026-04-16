@@ -9,6 +9,7 @@ import { RouteNames } from "../../constants"
 export default function AlergenPregled() {
 
     const navigate = useNavigate()
+
     const [alergeni, setAlergeni] = useState([])
 
 

@@ -5,21 +5,29 @@ import { Card, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import KategorijaService from "../service/kategorije/KategorijaService";
 import SlatkisiService from "../service/slatkisi/SlatkisiService";
+import AlergenService from "../service/alergeni/AlergenService";
+
+
+
+
 
 export default function Home(){
     const [brojKategorija, setBrojKategorija] = useState(0);
     const [brojSlatkisa, setBrojSlatkisa] = useState(0);
+    const [brojAlergena, setBrojAlergena] = useState(0);
     const [animatedKategorije, setAnimatedKategorije] = useState(0);
     const [animatedSlatkisi, setAnimatedSlatkisi] = useState(0);
-    
+    const [animatedAlergeni, setAnimatedAlergeni] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const kategorijeRezultat = await KategorijaService.get();
                 const slatkisi = await SlatkisiService.get();
+                const alergeni = await AlergenService.get();
 
                 setBrojKategorija(kategorijeRezultat.data.length);
                 setBrojSlatkisa(slatkisi.data.length);
+                setBrojAlergena(alergeni.data.length);
             } catch (error) {
                 console.error("Greška pri dohvaćanju podataka:", error);    
             }
@@ -44,6 +52,15 @@ export default function Home(){
             return () => clearTimeout(timer);
         }
     }, [animatedSlatkisi, brojSlatkisa]);
+
+    useEffect(() => {
+        if(animatedAlergeni < brojAlergena) {
+            const timer = setTimeout(() => {
+                setAnimatedAlergeni(prev => Math.min(prev + 1, brojAlergena));
+            }, 150);
+            return () => clearTimeout(timer);
+        }
+    })
 
     return(
     <>
@@ -85,6 +102,16 @@ export default function Home(){
                         {animatedSlatkisi}
                     </div>
                 </Card.Body>
+            </Card>
+                 <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                <Card.Body className="text-center">
+                    <p className="text-white">Alergeni</p>
+                    <div className="statistikaText">
+                        {animatedAlergeni}
+                    </div>
+                </Card.Body>
+            
+
             </Card>
 
 
