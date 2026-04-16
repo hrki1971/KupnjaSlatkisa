@@ -76,10 +76,10 @@ export default function GeneriranjePodataka() {
         const randomSlatkisi = slatkisi[faker.number.int({min: 0,max:slatkisi.length -1})]
         // Generiraj alergene
         const alergen = {
-            naziv: faker.food.ingredient() + ' alergen',
+            naziv: faker.person.firstName() + ' alergen',
             slatkis: randomSlatkisi.sifra
         };
-        await SlatkisiService.dodajAlergen(alergen);
+        await AlergenService.dodaj(alergen);
     }
     };
 
@@ -182,6 +182,61 @@ export default function GeneriranjePodataka() {
             setPoruka({
                 tip: 'danger',
                 tekst: 'Greška pri brisanju kategorija: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleGenerirajAlergene = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            
+            await generirajAlergene(brojAlergena);
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno generirano ${brojAlergena} alergena!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri generiranju alergena: ' + error.message
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleObrisiAlergene = async () => {
+        if (!window.confirm('Jeste li sigurni da želite obrisati sve alergene?')) {
+            return;
+        }
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            const rezultat = await AlergenService.get();
+            const alergeni = rezultat.data;
+            
+            for (const a of alergeni) {
+                await AlergenService.obrisi(a.sifra);
+            }
+
+            setPoruka({
+                tip: 'success',
+                tekst: `Uspješno obrisano ${alergeni.length} alergena!`
+            });
+        } catch (error) {
+            setPoruka({
+                tip: 'danger',
+                tekst: 'Greška pri brisanju alergena: ' + error.message
             });
         } finally {
             setLoading(false);
