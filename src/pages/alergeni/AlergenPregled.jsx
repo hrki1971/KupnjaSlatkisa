@@ -47,7 +47,7 @@ export default function AlergenPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Opis</th>
-                        <th>Cijena</th>
+                        <th>Akcija</th>
                         
                     </tr>
                 </thead>
@@ -55,10 +55,8 @@ export default function AlergenPregled() {
                     {alergeni && alergeni.map((alergen) => (
                         <tr key={alergen.sifra}>
                             <td className="lead">{alergen.naziv}</td>
-                            <td className="text-end">{alergen.opis}</td>
-                            <td className="text-end">
-                                
-                            </td>
+                            <td>{alergen.opis}</td>
+                        
                            
                             <td>
                                 <Button onClick={()=>{navigate(`/alergeni/${alergen.sifra}`)}}>

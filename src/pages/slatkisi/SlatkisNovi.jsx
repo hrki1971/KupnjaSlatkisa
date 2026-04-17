@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Form, Button, Row, Col, Container, Card } from "react-bootstrap"
+import { Form, Button, Row, Col, Container, Card, Table } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import { Link, useNavigate } from "react-router-dom"
 import KategorijaService from "../../service/kategorije/KategorijaService"
@@ -32,11 +32,6 @@ export default function SlatkisNovi() {
         })
     }
 
-    async function dodaj(slatkis) {
-        await SlatkisiService.dodaj(slatkis).then(() => {
-            navigate(RouteNames.SLATKISI)
-        })
-    }
 
     async function ucitajAlergene() {
         await AlergenService.get().then((odgovor) => {
@@ -65,11 +60,18 @@ function ukloniAlergen(sifra) {
 
 function filtrirajAlergene() {
     if(!pretragaAlergena) return []
-    return alergeni.filter(a => 
-        odabraniAlergeni.find(oa => oa.sifra === a.sifra) && 
+
+    console.table(odabraniAlergeni)
+
+    const rez =alergeni.filter(a => 
+        !odabraniAlergeni.find(oa => oa.sifra === a.sifra) && 
         (a.naziv.toLowerCase().includes(pretragaAlergena.toLowerCase()) || 
         a.opis.toLowerCase().includes(pretragaAlergena.toLowerCase()))
     )
+
+    console.table(rez)
+
+    return rez
 }
 
 function handleKeyDown(e) {
@@ -94,7 +96,7 @@ function handleKeyDown(e) {
 }
 
 async function dodaj(slatkis) {
-    await SlatkisiService.dodaj(slatkisi).then(() => {
+    await SlatkisiService.dodaj(slatkis).then(() => {
         navigate(RouteNames.SLATKISI)
     })
 }
@@ -115,22 +117,12 @@ async function dodaj(slatkis) {
             return;
         }
 
-        // --- KONTROLA 3: Slatkisi (Postojanje) ---
-        if (!podaci.get('slatkisi') || podaci.get('slatkisi') === "") {
-            alert("Morate odabrati slatkiš!");
-            return;
-        }
 
-        // --- KONTROLA 4: Slatkisi (Validna vrijednost) ---
-        const odabraniSlatkisi = parseInt(podaci.get('slatkisi'));
-        if (isNaN(odabraniSlatkisi) || odabraniSlatkisi <= 0) {
-            alert("Odabrani slatkiš nije valjan!");
-            return;
-        }
 
         dodaj({
             naziv: podaci.get('naziv'),
-            slatkisi: odabraniSlatkisi
+            kategorija: parseInt(podaci.get('kategorija')),
+            alergeni: odabraniAlergeni.map(a=>a.sifra)
         })
     }
 
@@ -158,12 +150,12 @@ async function dodaj(slatkis) {
                                     </Form.Group>
 
                                     {/* Alergeni */}
-                                    <Form.Group controlId="alergeni" className="mb-3">
-                                        <Form.Label className="fw-bold">Alergeni</Form.Label>
-                                        <Form.Select name="alergeni" multiple required>
-                                            {alergeni && alergeni.map((alergen) => (
-                                                <option key={alergen.sifra} value={alergen.sifra}>
-                                                    {alergen.naziv}
+                                    <Form.Group controlId="kategorija" className="mb-3">
+                                        <Form.Label className="fw-bold">Kategorija</Form.Label>
+                                        <Form.Select name="kategorija" required>
+                                            {kategorije && kategorije.map((kategorija) => (
+                                                <option key={kategorija.sifra} value={kategorija.sifra}>
+                                                    {kategorija.naziv}
                                                 </option>
                                             ))}
                                         </Form.Select>
@@ -188,13 +180,13 @@ async function dodaj(slatkis) {
                                             value={pretragaAlergena}
                                             onChange={(e) => {
                                                 setPretragaAlergena(e.target.value)
-                                                setPrikaziAutocomplete(e.target.value.length > 0)
+                                                setPrikaziAutoComplete(e.target.value.length > 0)
                                                 setOdabraniIndex(-1)
                                             }}
-                                            onFocus={() => setPrikaziAutocomplete(pretragaAlergena.length > 0)}
+                                            onFocus={() => setPrikaziAutoComplete(pretragaAlergena.length > 0)}
                                             onKeyDown={handleKeyDown}
                                         />
-                                        {prikaziAutocomplete && filtrirajAlergene().length > 0 && (
+                                        {prikaziAutoComplete && filtrirajAlergene().length > 0 && (
                                             <div className="position-absolute w-100 bg-white border rounded shadow-sm" style={{ zIndex: 1000, maxHeight: '200px', overflowY: 'auto' }}>
                                                 {filtrirajAlergene().map((alergen, index) => (
                                                     <div
@@ -210,7 +202,7 @@ async function dodaj(slatkis) {
                                                             setOdabraniIndex(index)
                                                         }}
                                                     >
-                                                        {alergen.ime}
+                                                        {alergen.naziv}
                                                     </div>
                                                 ))}
                                             </div>
@@ -230,7 +222,7 @@ async function dodaj(slatkis) {
                                                 <tbody>
                                                     {odabraniAlergeni.map(alergen => (
                                                         <tr key={alergen.sifra}>
-                                                            <td>{alergen.ime}</td>
+                                                            <td>{alergen.naziv}</td>
                                                             <td>
                                                                 <Button
                                                                     variant="danger"

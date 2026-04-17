@@ -41,19 +41,29 @@ export default function GeneriranjePodataka() {
     };
 
     const generirajSlatkise = async (broj) => {
-
         const rezultatKategorije = await KategorijaService.get();
         const kategorije = rezultatKategorije.data;
 
         if(kategorije.length === 0) {
             throw new Error('Nema dostupnih kategorija.Prvo generirajte kategorije.');
         }
+
+        const rezultatAlergeni = await AlergenService.get();
+        const alergeni = rezultatAlergeni.data;
+
+        if(alergeni.length === 0) {
+            throw new Error('Nema dostupnih alergena.Prvo generirajte alergene.');
+        }
+
+
+
         for (let i = 0; i < broj; i++) {
             const randomKategorija = kategorije[faker.number.int({min: 0,max:kategorije.length -1})]; 
-
+            const randomAlergen = alergeni[faker.number.int({min: 0,max:alergeni.length -1})]; 
             const slatkisi = {
                 naziv:faker.person.firstName() + ' candy',
-                kategorija:randomKategorija.sifra
+                kategorija:randomKategorija.sifra,
+                alergeni: [randomAlergen.sifra]
             };
 
                await SlatkisiService.dodaj(slatkisi); 
@@ -65,19 +75,12 @@ export default function GeneriranjePodataka() {
 
     const generirajAlergene = async (broj) => {
 
-        const rezultatSlatkise = await SlatkisiService.get();
-        const slatkisi = rezultatSlatkise.data;
-
-        if(slatkisi.length === 0) {
-            throw new Error('Nema dostupnih slatkisa.Prvo generirajte slatkise.');
-
-    }
+        
     for (let i = 0; i < broj; i++) {
-        const randomSlatkisi = slatkisi[faker.number.int({min: 0,max:slatkisi.length -1})]
         // Generiraj alergene
         const alergen = {
             naziv: faker.person.firstName() + ' alergen',
-            slatkis: randomSlatkisi.sifra
+            opis: faker.person.lastName()
         };
         await AlergenService.dodaj(alergen);
     }
@@ -285,32 +288,7 @@ export default function GeneriranjePodataka() {
                         </Button>
                     </Form>
                 </Col>
-                <Col md={4}>
-                    <Form onSubmit={handleGenerirajSlatkise}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Broj slatkisa</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="1"
-                                max="200"
-                                value={brojSlatkisa}
-                                onChange={(e) => setBrojSlatkisa(parseInt(e.target.value))}
-                                disabled={loading}
-                            />
-                            <Form.Text className="text-muted">
-                                Unesite broj slatkisa (1-200)
-                            </Form.Text>
-                        </Form.Group>
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            disabled={loading}
-                            className="w-100"
-                        >
-                            {loading ? 'Generiranje...' : 'Generiraj slatkise'}
-                        </Button>
-                    </Form>
-                </Col>
+                
                 <Col md={4}>
                     <Form onSubmit={handleGenerirajAlergene}>
                         <Form.Group className='mb-3'>
@@ -336,6 +314,33 @@ export default function GeneriranjePodataka() {
                             {loading ? 'Generiranje...' : 'Generiraj alergene'}
                         </Button>
 
+                    </Form>
+                </Col>
+
+                <Col md={4}>
+                    <Form onSubmit={handleGenerirajSlatkise}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Broj slatkisa</Form.Label>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="200"
+                                value={brojSlatkisa}
+                                onChange={(e) => setBrojSlatkisa(parseInt(e.target.value))}
+                                disabled={loading}
+                            />
+                            <Form.Text className="text-muted">
+                                Unesite broj slatkisa (1-200)
+                            </Form.Text>
+                        </Form.Group>
+                        <Button 
+                            variant="primary" 
+                            type="submit" 
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? 'Generiranje...' : 'Generiraj slatkise'}
+                        </Button>
                     </Form>
                 </Col>
                 
@@ -364,6 +369,16 @@ export default function GeneriranjePodataka() {
                         {loading ? 'Brisanje...' : 'Obriši sve kategorije'}
                     </Button>
                 </Col>
+                 <Col md={4}>
+                        <Button
+                            variant="danger"
+                            onClick={handleObrisiAlergene}
+                            disabled={loading}
+                            className="w-100 mb-2"
+                        >
+                            {loading ? 'Brisanje...' : 'Obriši sve alergene'}
+                        </Button>
+                    </Col>
                 <Col md={4}>
                     <Button 
                         variant="danger" 
@@ -374,16 +389,7 @@ export default function GeneriranjePodataka() {
                         {loading ? 'Brisanje...' : 'Obriši sve slatkise'}
                     </Button>
                 </Col>
-                    <Col md={4}>
-                        <Button
-                            variant="danger"
-                            onClick={handleObrisiAlergene}
-                            disabled={loading}
-                            className="w-100 mb-2"
-                        >
-                            {loading ? 'Brisanje...' : 'Obriši sve alergene'}
-                        </Button>
-                    </Col>
+                   
                 
             </Row>
 
