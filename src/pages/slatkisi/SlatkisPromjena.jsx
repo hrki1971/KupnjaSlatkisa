@@ -4,6 +4,7 @@ import KategorijaService from "../../service/kategorije/KategorijaService"
 import { Button, Col, Form, Row, Container, Card } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
+import AlergenService from "../../service/alergeni/AlergenService"
 
 export default function SlatkisPromjena(){
 
@@ -11,11 +12,24 @@ export default function SlatkisPromjena(){
     const params = useParams()
     const [slatkis, setSlatkis] = useState({})
     const [kategorije, setKategorije] = useState([])
+    const [alergeni, setAlergeni] = useState([])
+    const [odabraniAlergeni, setOdabraniAlergeni] = useState([])
+    const [pretragaAlergena, setPretragaAlergena] = useState('')
+    const [prikaziAutocomplete, setPrikaziAutocomplete] = useState(false)
+    const [odabraniIndex, setOdabraniIndex] = useState(-1)
 
     useEffect(()=>{
         ucitajSlatkis()
         ucitajKategorije()
+        ucitajAlergene()
     },[])
+
+    useEffect(() => {
+        if(slatkis.alergeni && alergeni.length > 0) {
+            const odabrani = alergeni.filter(a => slatkis.alergeni.includes(a.sifra))
+            setOdabraniAlergeni(odabrani)
+        }
+    }, [slatkis, alergeni])
 
     async function ucitajSlatkis() {
         await SlatkisiService.getBySifra(params.sifra).then((odgovor)=>{
@@ -37,8 +51,64 @@ export default function SlatkisPromjena(){
         })
     }
 
+    async function ucitajAlergene() {
+        await AlergenService.get().then((odgovor) => {
+            if(!odgovor.success) {
+                alert('nije implementiran servis za alergene')
+                return
+            } 
+            setAlergeni(odgovor.data)
+        
+        
+        })
+    }
+
     async function promjeni(slatkis) {
         await SlatkisiService.promjeni(params.sifra,slatkis).then(()=>{
+            navigate(RouteNames.SLATKISI)
+        })
+    }
+
+    function dodajAlergen(alergen) {
+        if(!odabraniAlergeni.some(a => a.sifra === alergen.sifra)) {
+            setOdabraniAlergeni([...odabraniAlergeni, alergen])
+        }
+        setPretragaAlergena('')
+        setPrikaziAutocomplete(false)
+        setOdabraniIndex(-1)
+    }
+    function ukloniAlergen(sifra) {
+        setOdabraniAlergeni(odabraniAlergeni.filter(a => a.sifra !== sifra))
+
+        
+    }
+
+    function filtrirajAlergene() {
+        if(!pretragaAlergena) return []
+        return alergeni.filter(a => !odabraniAlergeni.find(oa =>oa.sifra === a.sifra) && (a.naziv.toLowerCase()) || a.opis.toLowerCase().includes(pretragaAlergena.toLowerCase())) 
+    
+    }
+    function handleKeyDown(e) {
+        const filtriraniAlergeni = filtrirajAlergene()
+        if(e.key === 'ArrowDown') {
+            e.preventDefault()
+            setOdabraniIndex(prev => 
+                prev < filtriraniAlergeni.length - 1 ? prev + 1 : prev
+            )
+        }else if(e.key === 'ArrowUP') {
+            e.preventDefault()
+            setOdabraniIndex(prev => prev > 0 ? prev - 1 : 0)  
+        }else if(e.key === 'Enter' && odabraniIndex >=0 && filtriraniAlergeni.length > 0) {
+            e.preventDefault()
+            dodajAlergen(filtriraniAlergeni[odabraniIndex])
+        }else if(e.key === 'Escape') {
+            setPrikaziAutocomplete(false)
+            setOdabraniIndex(-1)
+        }
+    }
+
+    async function promjeni(slatkis) {
+        await SlatkisiService.promjeni(params.sifra,slatkis).then(() => {
             navigate(RouteNames.SLATKISI)
         })
     }
@@ -55,7 +125,7 @@ export default function SlatkisPromjena(){
 
         // --- KONTROLA 2: Naziv (Minimalna duljina) ---
         if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv grupe mora imati najmanje 3 znaka!");
+            alert("Naziv slatkisa mora imati najmanje 3 znaka!");
             return;
         }
 
@@ -72,9 +142,14 @@ export default function SlatkisPromjena(){
             return;
         }
 
+        // --- KONTROLA 5: Alergeni (Validne vrijednosti) ---
+        const odabraniAlergeniSifre = odabraniAlergeni.map(a => a.sifra)
+
+
         promjeni({
             naziv: podaci.get('naziv'),
             kategorija: odabranaKategorija
+            alergeni: odabraniAlergeni.map(a => a.sifra)
         })
     }
 
@@ -83,13 +158,14 @@ export default function SlatkisPromjena(){
             <h3>Promjena slatkiša</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
-                    <Card className="shadow-sm">
-                        <Card.Body>
-                            <Card.Title className="mb-4">Podaci o slatkisu</Card.Title>
+                    <Row>
+                        {/* Lijeva strana - Podaci o slatkisu */}
+                        <Col md={6}>
+                            <Card className="shadow-sm">
+                                <Card.Body>
+                                    <Card.Title className="mb-4">Podaci o slatkisu</Card.Title>
 
-                            {/* Naziv - Pun širina na svim ekranima */}
-                            <Row>
-                                <Col xs={12}>
+                                    {/* Naziv */}
                                     <Form.Group controlId="naziv" className="mb-3">
                                         <Form.Label className="fw-bold">Naziv</Form.Label>
                                         <Form.Control
@@ -100,41 +176,121 @@ export default function SlatkisPromjena(){
                                             defaultValue={slatkis.naziv}
                                         />
                                     </Form.Group>
-                                </Col>
-                            </Row>
-
-                            {/* Kategorija - Select dropdown */}
-                            <Row>
-                                <Col xs={12}>
-                                    <Form.Group controlId="kategorija" className="mb-3">
-                                        <Form.Label className="fw-bold">Kategorija</Form.Label>
-                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...slatkis, kategorija: parseInt(e.target.value)})}>
-                                            <option value="">Odaberite kategoriju</option>
-                                            {kategorije && kategorije.map((kategorija) => (
-                                                <option key={kategorija.sifra} value={kategorija.sifra}>
-                                                    {kategorija.naziv}
+                                     {/* Slatkis */}
+                                    <Form.Group controlId="slatkis" className="mb-3">
+                                        <Form.Label className="fw-bold">Slatkis</Form.Label>
+                                        <Form.Select name="slatkis" required value={slatkis.sifra || ''} onChange={(e) => setSlatkis({...slatkis, sifra: parseInt(e.target.value)})}>
+                                            <option value="">Odaberite slatkis</option>
+                                            {slatkisi && slatkisi.map((s) => (
+                                                <option key={s.sifra} value={s.sifra}>
+                                                    {s.naziv}
                                                 </option>
                                             ))}
                                         </Form.Select>
                                     </Form.Group>
-                                </Col>
-                            </Row>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        {/* Desna strana - Alergeni */}
+                        <Col md={6}>
+                            <Card className="shadow-sm">
+                                <Card.Body>
+                                    <Card.Title className="mb-4">Alergeni</Card.Title>
+                                     {/* Autocomplete pretraga */}
+                                    <Form.Group className="mb-3 position-relative">
+                                        <Form.Label className="fw-bold">Dodaj alergen</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Pretraži alergen..."
+                                            value={pretragaAlergena}
+                                            onChange={(e) => {
+                                                setPretragaAlergena(e.target.value)
+                                                setPrikaziAutocomplete(e.target.value.length > 0)
+                                                setOdabraniIndex(-1)
+                                            }}
+                                            onFocus={() => setPrikaziAutocomplete(pretragaAlergena.length > 0)}
+                                            onKeyDown={handleKeyDown}
+                                        />
 
-                            <hr />
+                                       {prikaziAutocomplete && filtrirajAlergene().length > 0 && (
+                                            <div className="position-absolute w-100 bg-white border rounded shadow-sm" style={{zIndex: 1000, maxHeight: '200px', overflowY: 'auto'}}>
+                                                {filtrirajAlergene().map((alergen, index) => (
+                                                    <div
+                                                        key={alergen.sifra}
+                                                        className="p-2 cursor-pointer"
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            backgroundColor: index === odabraniIndex ? '#007bff' : 'white',
+                                                            color: index === odabraniIndex ? 'white' : 'black'
+                                                        }}
+                                                        onClick={() => dodajAlergen(alergen)}
+                                                        onMouseEnter={(e) => {
+                                                            setOdabraniIndex(index)
+                                                        }}
+                                                    >
+                                                        {alergen.naziv}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </Form.Group>
 
-                            {/* Gumbi za akciju */}
-                            <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Link to={RouteNames.SLATKISI} className="btn btn-danger px-4">
-                                    Odustani
-                                </Link>
-                                <Button type="submit" variant="success">
-                                    Promjeni slatkiš
-                                </Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
+                                     {/* Tablica odabranih alergena */}
+                                    {odabraniAlergeni.length > 0 && (
+                                        <div style={{overflow: 'auto', maxHeight: '300px'}}>
+                                        <Table striped bordered hover size="sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Naziv</th>
+                                                    <th style={{width: '80px'}}>Akcija</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {odabraniAlergeni.map(alergen => (
+                                                    <tr key={alergen.sifra}>
+                                                        <td>{alergen.naziv}</td>
+                                                        <td>
+                                                            <Button
+                                                                variant="danger"
+                                                                size="sm"
+                                                                onClick={() => ukloniAlergen(alergen.sifra)}
+                                                            >
+                                                                Obriši
+                                                            </Button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
+                                        </div>
+                                    )}
+                                    {odabraniAlergeni.length === 0 && (
+                                        <p className="text-muted">Nema odabranih alergena</p>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    
+                    </Row>
+                    
+                     <hr className="my-4" />
+
+                     {/* Gumbi za akciju */}
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <Link to={RouteNames.SLATKISI} className="btn btn-danger px-4">
+                            Odustani
+                        </Link>
+                        <Button type="submit" variant="success">
+                            Promjeni slatkis
+                        </Button>
+                    </div>
                 </Container>
             </Form>
         </>
     )
 }
+                  
+                                 
+                                            
+
+                            
