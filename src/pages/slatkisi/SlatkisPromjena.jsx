@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import KategorijaService from "../../service/kategorije/KategorijaService"
-import { Button, Col, Form, Row, Container, Card } from "react-bootstrap"
+import { Button, Col, Form, Row, Container, Card, Table } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 import AlergenService from "../../service/alergeni/AlergenService"
@@ -148,7 +148,7 @@ export default function SlatkisPromjena(){
 
         promjeni({
             naziv: podaci.get('naziv'),
-            kategorija: odabranaKategorija
+            kategorija: odabranaKategorija,
             alergeni: odabraniAlergeni.map(a => a.sifra)
         })
     }
@@ -177,11 +177,11 @@ export default function SlatkisPromjena(){
                                         />
                                     </Form.Group>
                                      {/* Slatkis */}
-                                    <Form.Group controlId="slatkis" className="mb-3">
+                                    <Form.Group controlId="kategorija" className="mb-3">
                                         <Form.Label className="fw-bold">Slatkis</Form.Label>
-                                        <Form.Select name="slatkis" required value={slatkis.sifra || ''} onChange={(e) => setSlatkis({...slatkis, sifra: parseInt(e.target.value)})}>
-                                            <option value="">Odaberite slatkis</option>
-                                            {slatkisi && slatkisi.map((s) => (
+                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...kategorija, sifra: parseInt(e.target.value)})}>
+                                            <option value="">Odaberite kategoriju</option>
+                                            {kategorije && kategorije.map((s) => (
                                                 <option key={s.sifra} value={s.sifra}>
                                                     {s.naziv}
                                                 </option>
