@@ -5,6 +5,7 @@ import { Button, Col, Form, Row, Container, Card, Table } from "react-bootstrap"
 import { RouteNames } from "../../constants"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 import AlergenService from "../../service/alergeni/AlergenService"
+import { slatkisi } from "../../service/slatkisi/SlatkisiPodaci"
 
 export default function SlatkisPromjena(){
 
@@ -176,10 +177,10 @@ export default function SlatkisPromjena(){
                                             defaultValue={slatkis.naziv}
                                         />
                                     </Form.Group>
-                                     {/* Slatkis */}
+                                     {/* Kategorija */}
                                     <Form.Group controlId="kategorija" className="mb-3">
-                                        <Form.Label className="fw-bold">Slatkis</Form.Label>
-                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...kategorija, sifra: parseInt(e.target.value)})}>
+                                        <Form.Label className="fw-bold">Kategorija</Form.Label>
+                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...kategorija, slatkis: parseInt(e.target.value)})}>
                                             <option value="">Odaberite kategoriju</option>
                                             {kategorije && kategorije.map((s) => (
                                                 <option key={s.sifra} value={s.sifra}>
@@ -292,5 +293,3 @@ export default function SlatkisPromjena(){
                   
                                  
                                             
-
-                            
