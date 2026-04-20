@@ -180,7 +180,7 @@ export default function SlatkisPromjena(){
                                      {/* Kategorija */}
                                     <Form.Group controlId="kategorija" className="mb-3">
                                         <Form.Label className="fw-bold">Kategorija</Form.Label>
-                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...kategorija, slatkis: parseInt(e.target.value)})}>
+                                        <Form.Select name="kategorija" required value={slatkis.kategorija || ''} onChange={(e) => setSlatkis({...slatkis, kategorija: parseInt(e.target.value)})}>
                                             <option value="">Odaberite kategoriju</option>
                                             {kategorije && kategorije.map((s) => (
                                                 <option key={s.sifra} value={s.sifra}>

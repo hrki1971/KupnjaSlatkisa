@@ -60,13 +60,13 @@ export default function GeneriranjePodataka() {
         for (let i = 0; i < broj; i++) {
             const randomKategorija = kategorije[faker.number.int({min: 0,max:kategorije.length -1})]; 
             const randomAlergen = alergeni[faker.number.int({min: 0,max:alergeni.length -1})]; 
-            const slatkisi = {
+            const slatkis = {
                 naziv:faker.person.firstName() + ' candy',
                 kategorija:randomKategorija.sifra,
                 alergeni: [randomAlergen.sifra]
             };
 
-               await SlatkisiService.dodaj(slatkisi); 
+               await SlatkisiService.dodaj(slatkis); 
             
             }
             
