@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
 import useBreakpoint from "../../hooks/useBreakpoint"
+import SlatkisPregledGrid from "./SlatkisPregledGrid"
+import SlatkisPregledTablica from "./SlatkisPregledTablica"
 export default function SlatkisPregled(){
 
     const navigate = useNavigate()
@@ -57,32 +59,20 @@ export default function SlatkisPregled(){
         className="btn btn-success w-100 my-3">
             Dodavanje novog slatkiša
         </Link>
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Naziv</th>
-                    <th>Kategorija</th>
-                    <th>Akcija</th>
-                </tr>
-            </thead>
-            <tbody>
-                {slatkisi && slatkisi.map((slatkis)=>(
-                    <tr key={slatkis.sifra}>
-                        <td className="lead">{slatkis.naziv}</td>
-                        <td>{dohvatiNazivKategorije(slatkis.kategorija)}</td>
-                        <td>
-                            <Button onClick={()=>{navigate(`/slatkisi/${slatkis.sifra}`)}}>
-                                Promjeni
-                            </Button>
-                            &nbsp;&nbsp;
-                            <Button variant="danger" onClick={() => brisanje(slatkis.sifra)}>
-                                Obriši
-                            </Button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table>
+        {/* tableti prema manje */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <SlatkisPregledGrid 
+                    slatkisi={slatkisi} 
+                    navigate={navigate} 
+                    brisanje={brisanje} 
+                />
+            ) : (
+                <SlatkisPregledTablica
+                    slatkisi={slatkisi} 
+                    navigate={navigate} 
+                    brisanje={brisanje} 
+                />
+            )}
         </>
     )
 }

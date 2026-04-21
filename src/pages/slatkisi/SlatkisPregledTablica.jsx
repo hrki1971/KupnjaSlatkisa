@@ -97,23 +97,10 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje }) 
                         <td className="lead">{slatkis.naziv}</td>
                         <td className='text-end'>{slatkis.kategorija} h</td>
                         <td className='text-end'>
-                            <NumericFormat
-                                value={slatkis.cijena}
-                                displayType={'text'}
-                                thousandSeparator='.'
-                                decimalSeparator=','
-                                suffix=' €'
-                                prefix='='
-                                decimalScale={2}
-                                fixedDecimalScale
-                            />
+                          
+                            {slatkis.alergeni ? slatkis.alergeni.length : 0}
                         </td>
-                        <td style={{ textAlign: 'center' }}>
-                            <GrValidate
-                                size={25}
-                                color={slatkis.aktivan ? 'green' : 'red'}
-                            />
-                        </td>
+                       
                         <td>
                             <Button onClick={() => navigate(`/slatkisi/${slatkis.sifra}`)} title="Promjeni">
                                  <FaEdit />
