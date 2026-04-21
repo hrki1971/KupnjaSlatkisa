@@ -7,3 +7,4 @@ npm install react-number-format
 npm install react-icons
 npm install @lottiefiles/dotlottie-react
 npm install @faker-js/faker
+npm install jspdf jspdf-autotable

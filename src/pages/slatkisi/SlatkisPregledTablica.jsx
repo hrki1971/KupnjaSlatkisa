@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { useState } from "react";
 
-export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje }) {
+export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, generirajPDF, kategorije }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
     const handleSort = (key) => {
@@ -73,6 +73,12 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje }) 
         return sorted;
     };
 
+    const dohvatiNazivKategorije = (sifraKategorije) => {
+        if (!kategorije) return sifraKategorije;
+        const kat = kategorije.find(k => k.sifra === sifraKategorije);
+        return kat ? kat.naziv : sifraKategorije;
+    };
+
     return (
         <Table striped bordered hover responsive>
             <thead>
@@ -95,13 +101,17 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje }) 
                 {sortedSlatkisi() && sortedSlatkisi().map((slatkis) => (
                     <tr key={slatkis.sifra}>
                         <td className="lead">{slatkis.naziv}</td>
-                        <td className='text-end'>{slatkis.kategorija} h</td>
+                        <td className='text-end'>{dohvatiNazivKategorije(slatkis.kategorija)}</td>
                         <td className='text-end'>
                           
                             {slatkis.alergeni ? slatkis.alergeni.length : 0}
                         </td>
                        
                         <td>
+                            <Button variant="info" onClick={() => generirajPDF(slatkis)} title="PDF">
+                                 PDF
+                            </Button>
+                            &nbsp;&nbsp;
                             <Button onClick={() => navigate(`/slatkisi/${slatkis.sifra}`)} title="Promjeni">
                                  <FaEdit />
                             </Button>

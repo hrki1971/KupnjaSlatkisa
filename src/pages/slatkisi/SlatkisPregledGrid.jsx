@@ -4,7 +4,13 @@ import { GrValidate } from "react-icons/gr";
 import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-export default function SlatkisPregledGrid({ slatkisi, navigate, brisanje }) {
+export default function SlatkisPregledGrid({ slatkisi, navigate, brisanje, generirajPDF, kategorije }) {
+    const dohvatiNazivKategorije = (sifraKategorije) => {
+        if (!kategorije) return sifraKategorije;
+        const kat = kategorije.find(k => k.sifra === sifraKategorije);
+        return kat ? kat.naziv : sifraKategorije;
+    };
+
     return (
         <Container className="py-3 px-0">
             <Row>
@@ -25,17 +31,17 @@ export default function SlatkisPregledGrid({ slatkisi, navigate, brisanje }) {
                             <Card.Body>
                                 <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Naziv:</span>
-                                    <span className="fw-semibold">{slatkis.naziv} h</span>
+                                    <span className="fw-semibold">{slatkis.naziv}</span>
                                 </div>
                                 
-                                    <div className="d-flex justify-content-between mb-2">
+                                <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Kategorija:</span>
-                                    <span className="fw-semibold">{slatkis.kategorija} h</span>
+                                    <span className="fw-semibold">{dohvatiNazivKategorije(slatkis.kategorija)}</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Alergeni:</span>
-                                    <span className="fw-semibold">{slatkis.alergeni} h</span>
+                                    <span className="fw-semibold">{slatkis.alergeni ? slatkis.alergeni.length : 0}</span>
                                 </div>
                                 <div className="d-flex justify-content-between mb-2">
                                     <span className="text-muted">Cijena:</span>
@@ -56,6 +62,14 @@ export default function SlatkisPregledGrid({ slatkisi, navigate, brisanje }) {
                             </Card.Body>
 
                             <Card.Footer className="bg-light d-flex gap-2">
+                                <Button
+                                    variant="outline-info"
+                                    className="flex-fill"
+                                    onClick={() => generirajPDF(slatkis)}
+                                    title="PDF"
+                                >
+                                    PDF
+                                </Button>
                                 <Button
                                     variant="outline-primary"
                                     className="flex-fill"
