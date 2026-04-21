@@ -4,10 +4,11 @@ import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
-
+import useBreakpoint from "../../hooks/useBreakpoint"
 export default function SlatkisPregled(){
 
     const navigate = useNavigate()
+    const sirina = useBreakpoint();
 
     const [slatkisi, setSlatkisi] = useState([])
     const [kategorije, setKategorije] = useState([])
