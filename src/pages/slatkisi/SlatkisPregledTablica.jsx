@@ -5,6 +5,7 @@ import FormatDatuma from "../../components/FormatDatuma";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { useState } from "react";
+import { alergeni } from "../../service/alergeni/AlergenPodaci";
 
 export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, generirajPDF, kategorije }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
@@ -78,6 +79,20 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, ge
         const kat = kategorije.find(k => k.sifra === sifraKategorije);
         return kat ? kat.naziv : sifraKategorije;
     };
+
+    const dohvatiNazivAlergena = (sifraAlergena) => {
+        if(!sifraAlergena || sifraAlergena.length === 0) return "Nema alergena";
+        if(Array.isArray(sifraAlergena)) {
+            return sifraAlergena.map(sifra => {
+                const a = alergeni.find(a => a.sifra === sifra);
+                return a ? a.naziv : null
+        })
+        .filter(n => n !== null)
+        .join(', ');
+        }
+        const alergen = alergeni.find(a =>a.sifra === parseInt(sifraAlergena));
+        return alergen ? alergen.naziv : 'Nema alergena';
+    }
 
     return (
         <Table striped bordered hover responsive>
