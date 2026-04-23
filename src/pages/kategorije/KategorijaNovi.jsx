@@ -25,9 +25,9 @@ export default function KategorijaNovi() {
             alert("Opis ne smije sadržavati samo razmake!")
             return
         }
-
+    
         
-        }        dodaj({
+        dodaj({
             naziv: podaci.get('naziv'),
             opis: podaci.get('opis'),
             
@@ -96,5 +96,5 @@ export default function KategorijaNovi() {
     )
 
 
-
+}
 

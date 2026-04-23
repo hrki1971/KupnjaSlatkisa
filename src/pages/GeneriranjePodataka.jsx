@@ -32,10 +32,7 @@ export default function GeneriranjePodataka() {
         for (let i = 0; i < broj; i++) {
             await KategorijaService.dodaj({
                 naziv: naziviKategorija[i % naziviKategorija.length] + (i >= naziviKategorija.length ? ` ${Math.floor(i / naziviKategorija.length) + 1}` : ''),
-                opis: faker.person.lastName() + ' slatkiš',
-                cijena: faker.number.float({ min: 1100, max: 5000, precision: 0.01 }).toFixed(2)
-                
-                
+                opis: faker.person.lastName() + ' slatkiš'
             });
         }
     };
@@ -63,6 +60,7 @@ export default function GeneriranjePodataka() {
             const slatkis = {
                 naziv:faker.person.firstName() + ' candy',
                 kategorija:randomKategorija.sifra,
+                cijena: faker.number.float({ min: .05, max: 1.5, precision: 0.01 }).toFixed(2),
                 alergeni: [randomAlergen.sifra]
             };
 

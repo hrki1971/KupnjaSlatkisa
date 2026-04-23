@@ -45,6 +45,7 @@ export default function KategorijaPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Opis</th>
+                        <th>Slatkiša u kategoriji</th>
                         <th>Akcija</th>
                         
                     </tr>
@@ -55,7 +56,7 @@ export default function KategorijaPregled() {
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
                             <td>
-                                {kategorija.slatkisi ? kategorija.slatkisi.length : 0}
+                               Napraviti
                             </td>
                             <td>
                                 <Button onClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>

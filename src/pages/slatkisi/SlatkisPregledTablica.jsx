@@ -125,7 +125,15 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, ge
                             {slatkis.alergeni ? slatkis.alergeni.length : 0}
                         </td>
                         <td className='text-end'>
-                            {slatkis.cijena?.toFixed(2)} €
+                             <NumericFormat
+                                            value={slatkis.cijena}
+                                            displayType={'text'}
+                                            thousandSeparator='.'
+                                            decimalSeparator=','
+                                            suffix=' €'
+                                            decimalScale={2}
+                                            fixedDecimalScale
+                                        />
                         </td>
                         <td>
                             <Button variant="info" onClick={() => generirajPDF(slatkis)} title="PDF">
