@@ -4,6 +4,7 @@ import { NumericFormat } from "react-number-format"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import KategorijaService from "../../service/kategorije/KategorijaService"
+import { slatkisi } from "../../service/slatkisi/SlatkisiPodaci"
 
 
 export default function KategorijaPregled() {
@@ -22,6 +23,11 @@ export default function KategorijaPregled() {
             }
             setKategorije(odgovor.data)
         })
+    }
+
+    function dohvatiBrojSlatkisa(kategorija){
+        const slatkis = slatkisi.find(s=>s.sifra === kategorija.sifra)
+        return slatkis ? slatkis.broj : 2
     }
     async function obrisi(sifra) {
       // debugger
@@ -56,8 +62,15 @@ export default function KategorijaPregled() {
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
                             <td>
-                               Napraviti
+                               {dohvatiBrojSlatkisa(kategorija)}
                             </td>
+                            <td className="text-center">
+
+                            </td>
+                            
+                            
+
+                            
                             <td>
                                 <Button onClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>
                                     Promjena
