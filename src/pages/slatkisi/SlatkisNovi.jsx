@@ -118,11 +118,18 @@ async function dodaj(slatkis) {
         }
 
 
+        if(!podaci.get('cijena') || podaci.get('cijena') ===""){
+            alert("Cijena je obavezna!")
+            return
+        }
+
+
 
         dodaj({
             naziv: podaci.get('naziv'),
             kategorija: parseInt(podaci.get('kategorija')),
-            alergeni: odabraniAlergeni.map(a=>a.sifra)
+            alergeni: odabraniAlergeni.map(a=>a.sifra),
+            cijena: parseFloat(podaci.get('cijena'))
         })
     }
 
@@ -159,6 +166,19 @@ async function dodaj(slatkis) {
                                                 </option>
                                             ))}
                                         </Form.Select>
+                                    </Form.Group>
+
+                                    {/* Cijena */}
+                                    <Form.Group controlId="cijena" className="mb-3">
+                                        <Form.Label className="fw-bold">Cijena</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            name="cijena"
+                                            placeholder="Unesite cijenu slatkiša"
+                                            step="0.01"
+                                            min="0"
+                                            required
+                                        />
                                     </Form.Group>
                                 </Card.Body>
                             </Card>

@@ -45,8 +45,8 @@ export default function KategorijaPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Opis</th>
-                        <th>Cijena</th>
                         <th>Akcija</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -55,17 +55,7 @@ export default function KategorijaPregled() {
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
                             <td>
-                                <NumericFormat
-                                    value={kategorija.cijena}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    suffix={' €'}
-                                    decimalScale={2}
-                                    fixedDecimalScale
-
-
-                                />
+                                {kategorija.slatkisi ? kategorija.slatkisi.length : 0}
                             </td>
                             <td>
                                 <Button onClick={()=>{navigate(`/kategorije/${kategorija.sifra}`)}}>

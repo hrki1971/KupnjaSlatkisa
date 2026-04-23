@@ -150,7 +150,8 @@ export default function SlatkisPromjena(){
         promjeni({
             naziv: podaci.get('naziv'),
             kategorija: odabranaKategorija,
-            alergeni: odabraniAlergeni.map(a => a.sifra)
+            alergeni: odabraniAlergeni.map(a => a.sifra),
+            cijena: parseFloat(podaci.get('cijena'))
         })
     }
 
@@ -188,6 +189,19 @@ export default function SlatkisPromjena(){
                                                 </option>
                                             ))}
                                         </Form.Select>
+                                    </Form.Group>
+                                    {/*Cijena*/}
+                                    <Form.Group controlId="cijena" className="mb-3">
+                                        <Form.Label className="fw-bold">Cijena</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            name="cijena"
+                                            placeholder="Unesite cijenu slatkiša"
+                                            step="0.01"
+                                            min="0"
+                                            required
+                                            defaultValue={slatkis.cijena}
+                                        />
                                     </Form.Group>
                                 </Card.Body>
                             </Card>

@@ -44,7 +44,7 @@ export default function KategorijaPromjena() {
         promjeni({
             naziv: podaci.get('naziv'),
             opis: podaci.get('opis'),
-            cijena: parseFloat(podaci.get('cijena'))
+            
         })
     }
     return (
@@ -66,12 +66,7 @@ export default function KategorijaPromjena() {
 
 
                 </Form.Group>
-                <Form.Group controlId="cijena">
-                    <Form.Label>Cijena</Form.Label>
-                    <Form.Control type="number" name="cijena" step={0.01}
-                        defaultValue={kategorija.cijena} />
-
-                </Form.Group>
+                
 
                 <hr style={{ marginTop: '50px', border: '0' }} />
 

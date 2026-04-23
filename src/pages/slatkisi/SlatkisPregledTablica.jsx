@@ -107,6 +107,9 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, ge
                     <th onClick={() => handleSort('alergeni')} style={{ cursor: 'pointer' }}>
                         Alergeni {getSortIcon('alergeni')}
                     </th>
+                    <th onClick={() => handleSort('cijena')} style={{ cursor: 'pointer' }}>
+                        Cijena {getSortIcon('cijena')}
+                    </th>
                   
                    
                     <th>Akcija</th>
@@ -121,7 +124,9 @@ export default function SlatkisPregledTablica({ slatkisi, navigate, brisanje, ge
                           
                             {slatkis.alergeni ? slatkis.alergeni.length : 0}
                         </td>
-                       
+                        <td className='text-end'>
+                            {slatkis.cijena?.toFixed(2)} €
+                        </td>
                         <td>
                             <Button variant="info" onClick={() => generirajPDF(slatkis)} title="PDF">
                                  PDF

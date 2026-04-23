@@ -23,15 +23,14 @@ export default function KategorijaNovi() {
 
         if(!podaci.get('opis') || podaci.get('opis').trim().length===0){
             alert("Opis ne smije sadržavati samo razmake!")
+            return
         }
 
-        if(!podaci.get('cijena') || podaci.get('cijena') ===""){
-            alert("Cijena je obavezna!")
-            return  
+        
         }        dodaj({
             naziv: podaci.get('naziv'),
             opis: podaci.get('opis'),
-            cijena: parseFloat(podaci.get('cijena'))
+            
         })
     }
     return (
@@ -65,16 +64,7 @@ export default function KategorijaNovi() {
             </Col>
             </Row>
 
-            <Row>
-            <Col xs={6}>
-                <Form.Group controlId="cijena">
-                    <Form.Label>Cijena</Form.Label>
-                    <Form.Control type="number" name="cijena" step={0.01} />
-
-                </Form.Group>
-            </Col>
-
-            </Row>
+            
 
 
                 <hr />
@@ -107,4 +97,4 @@ export default function KategorijaNovi() {
 
 
 
-}
+
