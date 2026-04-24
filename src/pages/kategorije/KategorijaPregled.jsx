@@ -4,17 +4,19 @@ import { NumericFormat } from "react-number-format"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import KategorijaService from "../../service/kategorije/KategorijaService"
-import { slatkisi } from "../../service/slatkisi/SlatkisiPodaci"
+import SlatkisiService from "../../service/slatkisi/SlatkisiService"
+
 
 
 export default function KategorijaPregled() {
 
     const navigate = useNavigate()
     const [kategorije, setKategorije] = useState([])
+    const [slatkisi, setSlatkisi] = useState([])
 
     useEffect(() => {
         ucitajKategorije()
-
+        ucitajSlatkise()
     }, [])
     async function ucitajKategorije() {
         await KategorijaService.get().then((odgovor) => {
@@ -25,9 +27,24 @@ export default function KategorijaPregled() {
         })
     }
 
-    function dohvatiBrojSlatkisa(kategorija){
-        const slatkis = slatkisi.find(s=>s.sifra === kategorija.sifra)
-        return slatkis ? slatkis.broj : 2
+    async function ucitajSlatkise() {
+            await SlatkisiService.get().then((odgovor)=>{
+                if(!odgovor.success){
+                    alert('Nije implementiran servis')
+                    return
+                }
+                setSlatkisi(odgovor.data)
+            })
+        }
+
+    function dohvatiBrojSlatkisa(sifraKategorija){
+        let brojac = 0
+        slatkisi.map((e)=>{
+            if(e.kategorija ===sifraKategorija){
+                brojac++
+            }
+        })
+        return brojac
     }
     async function obrisi(sifra) {
       // debugger
@@ -62,7 +79,7 @@ export default function KategorijaPregled() {
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
                             <td>
-                               {dohvatiBrojSlatkisa(kategorija)}
+                               {dohvatiBrojSlatkisa(kategorija.sifra)}
                             </td>
                             <td className="text-center">
 
