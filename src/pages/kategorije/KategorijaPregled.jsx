@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import KategorijaService from "../../service/kategorije/KategorijaService"
 import SlatkisiService from "../../service/slatkisi/SlatkisiService"
+import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa"
+import { kategorije } from "../../service/kategorije/KategorijaPodaci"
 
 
 
@@ -13,6 +15,69 @@ export default function KategorijaPregled() {
     const navigate = useNavigate()
     const [kategorije, setKategorije] = useState([])
     const [slatkisi, setSlatkisi] = useState([])
+    const[sortConfig, setSortConfig] = useState({ key: null, direction: null})
+
+    const handleSort = (key) => {
+        let direction = 'asc';
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }else if (sortConfig.key === key && sortConfig.direction === 'desc') {
+            direction = null;
+        }
+        setSortConfig({key,direction})
+    };
+
+    const getSortIcon = (columnKey) => {
+      if(sortConfig.key !==columnKey || sortConfig.direction === null) {
+     
+        }    return<FaSort />;
+      }
+      return  sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
+    };
+
+    const sortedKategorije = () => {
+        if (!kategorije || sortConfig.direction === null) {
+            return kategorije;
+        }
+        const sorted = [...kategorije].sort((a, b)=> {
+            let aValue = a[sortConfig.key];
+            let bValue = b[sortConfig.key];
+
+            //Obrada null/undefined vrijednosti
+            if(aValue === null || aValue === undefined)return 1;
+            if(bValue === null || bValue === undefined)return -1;
+
+            //Sortiranje prema tipu podatka:Date
+            if (sortConfig.key === 'datumPokretanja') {
+                const dateA = new Date(aValue);
+                const dateB = new Date(bValue);
+                return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
+            }
+
+            //Sortiranje prema tipu podatka: boolean
+               if (sortConfig.key === 'aktivan') {
+                const valA = aValue ? 1 : 0;
+                const valB = bValue ? 1 : 0;
+                return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
+            }
+
+            //Sortiranje prema tipu podatka: string
+             if (typeof aValue === 'string') {
+                // localeCompare s 'hr' parametrom rješava čšćđž ČŠĆĐŽ
+                const result = aValue.localeCompare(bValue, 'hr', { sensitivity: 'accent' });
+                return sortConfig.direction === 'asc' ? result : -result;
+            }
+
+            //Za brojeve (cijena,trajanje)
+                if (aValue < bValue) {
+                return sortConfig.direction === 'asc' ? -1 : 1;
+            }
+            if (aValue > bValue) {
+                return sortConfig.direction === 'asc' ? 1 : -1;
+            }
+            return 0;
+        });
+            return sorted;
 
     useEffect(() => {
         ucitajKategorije()
@@ -66,15 +131,19 @@ export default function KategorijaPregled() {
             <Table striped border hover>
                 <thead>
                     <tr>
-                        <th>Naziv</th>
-                        <th>Opis</th>
-                        <th>Slatkiša u kategoriji</th>
+                        <th onClick={()=> handleSort(naziv)} style={{cursor: 'pointer'}}
+                         >Naziv {getSortIcon('naziv')}</th>
+                        <th onClick={()=> handleSort('opis')} style={{cursor: 'pointer'}}
+                            >Opis{getSortIcon('opis')}</th>
+                        <th onClick={()=> handleSort(slatkisa)} style={{cursor: 'pointer'}}
+                            >Slatkiša u kategoriji{getSortIcon('slatkisa')}</th>
                         <th>Akcija</th>
+                            
                         
                     </tr>
                 </thead>
                 <tbody>
-                    {kategorije && kategorije.map((kategorija) => (
+                    {sortedKategorije() && sortedKategorije().map((kategorija) => (
                         <tr key={kategorija.sifra}>
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
