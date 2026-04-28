@@ -29,9 +29,9 @@ export default function KategorijaPregled() {
 
     const getSortIcon = (columnKey) => {
       if(sortConfig.key !==columnKey || sortConfig.direction === null) {
-     
-        }    return<FaSort />;
-      }
+        return<FaSort />;
+        }    
+      
       return  sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     };
 
@@ -47,19 +47,7 @@ export default function KategorijaPregled() {
             if(aValue === null || aValue === undefined)return 1;
             if(bValue === null || bValue === undefined)return -1;
 
-            //Sortiranje prema tipu podatka:Date
-            if (sortConfig.key === 'datumPokretanja') {
-                const dateA = new Date(aValue);
-                const dateB = new Date(bValue);
-                return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
-            }
-
-            //Sortiranje prema tipu podatka: boolean
-               if (sortConfig.key === 'aktivan') {
-                const valA = aValue ? 1 : 0;
-                const valB = bValue ? 1 : 0;
-                return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
-            }
+          
 
             //Sortiranje prema tipu podatka: string
              if (typeof aValue === 'string') {
@@ -67,6 +55,8 @@ export default function KategorijaPregled() {
                 const result = aValue.localeCompare(bValue, 'hr', { sensitivity: 'accent' });
                 return sortConfig.direction === 'asc' ? result : -result;
             }
+
+
 
             //Za brojeve (cijena,trajanje)
                 if (aValue < bValue) {
@@ -79,38 +69,47 @@ export default function KategorijaPregled() {
         });
             return sorted;
 
-    useEffect(() => {
-        ucitajKategorije()
-        ucitajSlatkise()
-    }, [])
-    async function ucitajKategorije() {
-        await KategorijaService.get().then((odgovor) => {
-            if(!odgovor.success){
-                alert('Nije implementiran servis')
-            }
-            setKategorije(odgovor.data)
-        })
     }
 
-    async function ucitajSlatkise() {
-            await SlatkisiService.get().then((odgovor)=>{
-                if(!odgovor.success){
-                    alert('Nije implementiran servis')
-                    return
-                }
-                setSlatkisi(odgovor.data)
-            })
+    useEffect(() => {
+        async function inicijaliziraj() {
+            const podaciSlatkisi = await SlatkisiService.get(); 
+            await ucitajKategorije(podaciSlatkisi.data);    
         }
+        inicijaliziraj();
+        
+    }, [])
 
-    function dohvatiBrojSlatkisa(sifraKategorija){
+
+    async function ucitajKategorije(podaciSlatkisi) {
+        
+       const odgovor = await KategorijaService.get()
+
+        if(!odgovor.success){
+            alert('Nije implementiran servis')
+        }
+        const kt = odgovor.data
+
+        for(let i=0;i<kt.length;i++){
+            kt[i].brojSlatkisa = await dohvatiBrojSlatkisa(podaciSlatkisi,kt[i].sifra)
+        }
+            
+        setKategorije(kt)
+       
+    }
+
+    async function dohvatiBrojSlatkisa(podaciSlatkisi,sifraKategorija){
         let brojac = 0
-        slatkisi.map((e)=>{
-            if(e.kategorija ===sifraKategorija){
+        podaciSlatkisi.map((e)=>{
+            //console.log(e)
+            if(e.kategorija ==sifraKategorija){
                 brojac++
             }
         })
         return brojac
     }
+
+
     async function obrisi(sifra) {
       // debugger
       
@@ -122,6 +121,8 @@ export default function KategorijaPregled() {
         await KategorijaService.obrisi(sifra)
         ucitajKategorije()
     }
+
+
     return (
         <>
             <Link to={RouteNames.KATEGORIJE_NOVI}
@@ -131,12 +132,12 @@ export default function KategorijaPregled() {
             <Table striped border hover>
                 <thead>
                     <tr>
-                        <th onClick={()=> handleSort(naziv)} style={{cursor: 'pointer'}}
+                        <th onClick={()=> handleSort('naziv')} style={{cursor: 'pointer'}}
                          >Naziv {getSortIcon('naziv')}</th>
                         <th onClick={()=> handleSort('opis')} style={{cursor: 'pointer'}}
                             >Opis{getSortIcon('opis')}</th>
-                        <th onClick={()=> handleSort(slatkisa)} style={{cursor: 'pointer'}}
-                            >Slatkiša u kategoriji{getSortIcon('slatkisa')}</th>
+                        <th onClick={()=> handleSort('brojSlatkisa')} style={{cursor: 'pointer'}}
+                            >Slatkiša u kategoriji{getSortIcon('brojSlatkisa')}</th>
                         <th>Akcija</th>
                             
                         
@@ -148,10 +149,7 @@ export default function KategorijaPregled() {
                             <td className="lead">{kategorija.naziv}</td>
                             <td className="lead">{kategorija.opis}</td>
                             <td>
-                               {dohvatiBrojSlatkisa(kategorija.sifra)}
-                            </td>
-                            <td className="text-center">
-
+                               {kategorija.brojSlatkisa}
                             </td>
                             
                             
