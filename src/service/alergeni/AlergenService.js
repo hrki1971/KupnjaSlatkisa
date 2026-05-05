@@ -32,5 +32,6 @@ export default {
     getBySifra: (sifra) => AktivniServis.getBySifra(sifra),
     dodaj: (alergen) => AktivniServis.dodaj(alergen),
     promjeni: (sifra, alergen) => AktivniServis.promjeni(sifra, alergen),
-    obrisi: (sifra) => AktivniServis.obrisi(sifra)
+    obrisi: (sifra) => AktivniServis.obrisi(sifra),
+    getPage: (page, pageSize, searchTerm) => AktivniServis.getPage(page, pageSize, searchTerm)
 };

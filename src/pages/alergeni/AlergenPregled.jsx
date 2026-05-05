@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import AlergenService from "../../service/alergeni/AlergenService"
-import { Table, Button, InputGroup, Container, Row, Pagination } from "react-bootstrap"
+import { Table, Button, InputGroup, Container, Row, Pagination, Form, Col, Card } from "react-bootstrap"
 
 
 import { Link, useNavigate } from "react-router-dom"
@@ -167,36 +167,6 @@ export default function AlergenPregled() {
                     </Pagination>
                 </div>
             )}
-
-            <Table striped bordered hover{/* Search input */}>
-                <thead>
-                    <tr>
-                        <th>Naziv</th>
-                        <th>Opis</th>
-                        <th>Akcija</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {alergeni && alergeni.map((alergen) => (
-                        <tr key={alergen.sifra}>
-                            <td className="lead">{alergen.naziv}</td>
-                            <td>{alergen.opis}</td>
-                        
-                           
-                            <td>
-                                <Button onClick={()=>{navigate(`/alergeni/${alergen.sifra}`)}}>
-                                    Promjena
-                                </Button>
-                                &nbsp;&nbsp;
-                                 <Button variant="danger" onClick={()=>{obrisi(alergen.sifra)}}>
-                                    Obriši
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
         </>
     )
 }
