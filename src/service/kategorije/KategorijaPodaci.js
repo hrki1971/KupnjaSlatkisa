@@ -22,7 +22,8 @@ export const kategorije = [
         opis:'Predobro',
         slatkisi:3
     
-    }
+    },
+   
         
     
 ]

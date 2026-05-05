@@ -20,7 +20,7 @@ export const alergeni = [
     {
         sifra: 3,
         naziv: 'Gluten',
-        opis:'Nalazi se u pšeničnom brašnu koje je baza zakekse'
+        opis:'Nalazi se u pšeničnom brašnu koje je baza za kekse'
         
         
     
@@ -32,8 +32,23 @@ export const alergeni = [
         
         
         
+    },
+    {
+        sifra: 5,
+        naziv: 'Soja',
+        opis: 'Često se nalazi u čokoladi i mnogim vrstama bombona',
+    },
+    {
+        sifra: 6,
+        naziv: 'Riba',
+        opis: 'Rijetko se nalaze u slatkim proizvodima, ali mogu biti prisutni u određenim vrstama bombona ili deserata',
+    },
+    {
+        sifra: 7,
+        naziv: 'Pšenica',
+        opis: 'Pšenica je ključni sastojak u mnogim vrstama keksa,kolača i drugih slatkih proizvoda',
     }
-   
+    
     
         
 ]

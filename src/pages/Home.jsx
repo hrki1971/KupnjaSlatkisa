@@ -39,7 +39,7 @@ export default function Home(){
         if(animatedKategorije < brojKategorija) {
             const timer = setTimeout(() => {
                 setAnimatedKategorije(prev => Math.min(prev + 1, brojKategorija));
-            }, 300);
+            }, 500);
             return () => clearTimeout(timer);
         }
     }, [animatedKategorije, brojKategorija]);
