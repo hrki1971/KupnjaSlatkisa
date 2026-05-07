@@ -5,7 +5,7 @@ import KategorijaService from '../service/kategorije/KategorijaService';
 import SlatkisiService from '../service/slatkisi/SlatkisiService';
 import AlergenService from '../service/alergeni/AlergenService';
 import { kategorije } from '../service/kategorije/KategorijaPodaci';
-import { DATA_SOURCE, IME_APLIKACIJE, PrefixStorage } from '../constants';
+import { DATA_SOURCE, IME_APLIKACIJE } from '../constants';
 import kategorijeMemorija from '../service/kategorije/KategorijaPodaci';
 import slatkisiMemorija from '../service/slatkisi/SlatkisiPodaci';
 import alergeniMemorija from '../service/alergeni/AlergenPodaci'
@@ -257,9 +257,9 @@ export default function GeneriranjePodataka() {
         setPoruka(null);
 
             try {
-                localStorage.setItem(PrefixStorage.KATEGORIJE, JSON.stringify(kategorijeMemorija.kategorije));
-                localStorage.setItem(PrefixStorage.SLATKISI, JSON.stringify(slatkisiMemorija.slatkisi));
-                localStorage.setItem(PrefixStorage.ALERGENI, JSON.stringify(alergeniMemorija.alergeni));
+                localStorage.setItem('kategorije', JSON.stringify(kategorijeMemorija.kategorije));
+                localStorage.setItem('slatkisi', JSON.stringify(slatkisiMemorija.slatkisi));
+                localStorage.setItem('alergeni', JSON.stringify(alergeniMemorija.alergeni));
 
                 setPoruka({
                     tip: 'success',
@@ -273,7 +273,7 @@ export default function GeneriranjePodataka() {
                 }finally {
                         setLoading(false);
                     }
-                };
+           
             
     }
 
@@ -451,3 +451,4 @@ export default function GeneriranjePodataka() {
         </Container>
     );
 
+}

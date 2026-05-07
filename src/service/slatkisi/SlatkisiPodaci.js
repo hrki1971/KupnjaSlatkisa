@@ -38,3 +38,8 @@ export const slatkisi = [
         cijena: 0.99
     }
 ]
+
+
+export default {
+    slatkisi
+}
