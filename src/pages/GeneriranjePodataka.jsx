@@ -4,6 +4,11 @@ import { Faker, hr } from '@faker-js/faker';
 import KategorijaService from '../service/kategorije/KategorijaService';
 import SlatkisiService from '../service/slatkisi/SlatkisiService';
 import AlergenService from '../service/alergeni/AlergenService';
+import { kategorije } from '../service/kategorije/KategorijaPodaci';
+import { DATA_SOURCE, IME_APLIKACIJE, PrefixStorage } from '../constants';
+import kategorijeMemorija from '../service/kategorije/KategorijaPodaci';
+import slatkisiMemorija from '../service/slatkisi/SlatkisiPodaci';
+import alergeniMemorija from '../service/alergeni/AlergenPodaci'
 
 
 
@@ -244,6 +249,34 @@ export default function GeneriranjePodataka() {
         }
     };
 
+    const handleMemorijaULocalStorage = async () => {
+        if (!window.confirm('Jeste li sigurni da želite pretočiti iz memorija u localStorage?')) {
+            return;
+        }
+        setLoading(true);
+        setPoruka(null);
+
+            try {
+                localStorage.setItem(PrefixStorage.KATEGORIJE, JSON.stringify(kategorijeMemorija.kategorije));
+                localStorage.setItem(PrefixStorage.SLATKISI, JSON.stringify(slatkisiMemorija.slatkisi));
+                localStorage.setItem(PrefixStorage.ALERGENI, JSON.stringify(alergeniMemorija.alergeni));
+
+                setPoruka({
+                    tip: 'success',
+                    tekst: `Uspješno presipano iz memorije u LocalStorage`
+                });
+            }catch (error) {
+                    setPoruka({
+                        tip: 'danger',
+                        tekst: 'Greška pri presipanju iz memorije u LocalStorage: ' + error.message
+                    });
+                }finally {
+                        setLoading(false);
+                    }
+                };
+            
+    }
+
    
 
     return (
@@ -394,6 +427,27 @@ export default function GeneriranjePodataka() {
             <Alert variant="danger" className="mt-3">
                 <strong>Oprez!</strong> Brisanje podataka je trajna akcija i ne može se poništiti.
             </Alert>
+            {(DATA_SOURCE == 'memorija' || DATA_SOURCE == 'localStorage') && (
+                <>
+                    <hr />
+                    <h3>Pretakanje podataka iz jednog izvora u drugi</h3>
+                    <Row className='mt-3'>
+                        <Col md={6}>
+                        <Button
+                        variant="success"
+                        onClick={handleMemorijaULocalStorage}
+                        disabled={loading}
+                        className="w-100 mb-2"
+                        >
+                            {loading ? 'Pretakannje...' : 'Iz memorije u LocalStorage'}
+                        </Button>
+                        
+                        
+                        </Col>
+
+                    </Row>
+                </>
+            )}
         </Container>
     );
-}
+
