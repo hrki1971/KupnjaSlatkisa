@@ -122,12 +122,12 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno generirano ${brojSlatkisa} slatkisa!`
+                tekst: `Uspješno generirano ${brojSlatkisa} slatkiša!`
             });
         } catch (error) {
             setPoruka({
                 tip: 'danger',
-                tekst: 'Greška pri generiranju slatkisa: ' + error.message
+                tekst: 'Greška pri generiranju slatkiša: ' + error.message
             });
         } finally {
             setLoading(false);
@@ -135,7 +135,7 @@ export default function GeneriranjePodataka() {
     };
 
     const handleObrisiSlatkise = async () => {
-        if (!window.confirm('Jeste li sigurni da želite obrisati sve slatkise?')) {
+        if (!window.confirm('Jeste li sigurni da želite obrisati sve slatkiše?')) {
             return;
         }
 
@@ -152,12 +152,12 @@ export default function GeneriranjePodataka() {
 
             setPoruka({
                 tip: 'success',
-                tekst: `Uspješno obrisano ${slatkisi.length} slatkisa!`
+                tekst: `Uspješno obrisano ${slatkisi.length} slatkiša!`
             });
         } catch (error) {
             setPoruka({
                 tip: 'danger',
-                tekst: 'Greška pri brisanju slatkisa: ' + error.message
+                tekst: 'Greška pri brisanju slatkiša: ' + error.message
             });
         } finally {
             setLoading(false);
@@ -351,7 +351,7 @@ export default function GeneriranjePodataka() {
                 <Col md={4}>
                     <Form onSubmit={handleGenerirajSlatkise}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Broj slatkisa</Form.Label>
+                            <Form.Label>Broj slatkiša</Form.Label>
                             <Form.Control
                                 type="number"
                                 min="1"
@@ -361,7 +361,7 @@ export default function GeneriranjePodataka() {
                                 disabled={loading}
                             />
                             <Form.Text className="text-muted">
-                                Unesite broj slatkisa (1-200)
+                                Unesite broj slatkiša (1-200)
                             </Form.Text>
                         </Form.Group>
                         <Button 
@@ -370,7 +370,7 @@ export default function GeneriranjePodataka() {
                             disabled={loading}
                             className="w-100"
                         >
-                            {loading ? 'Generiranje...' : 'Generiraj slatkise'}
+                            {loading ? 'Generiranje...' : 'Generiraj slatkiše'}
                         </Button>
                     </Form>
                 </Col>
@@ -417,7 +417,7 @@ export default function GeneriranjePodataka() {
                         disabled={loading}
                         className="w-100 mb-2"
                     >
-                        {loading ? 'Brisanje...' : 'Obriši sve slatkise'}
+                        {loading ? 'Brisanje...' : 'Obriši sve slatkiše'}
                     </Button>
                 </Col>
                    

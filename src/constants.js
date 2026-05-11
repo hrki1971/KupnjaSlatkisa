@@ -1,4 +1,4 @@
-export const IME_APLIKACIJE='Slatkisi'
+export const IME_APLIKACIJE='Slatkiši'
 
 export const RouteNames = {
     HOME: '/',
@@ -18,4 +18,4 @@ export const RouteNames = {
 }
 
 // memorija, localStorage, firebase
-export const DATA_SOURCE = 'localStorage'
+export const DATA_SOURCE = 'memorija'
