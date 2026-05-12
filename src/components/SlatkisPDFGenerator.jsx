@@ -127,8 +127,8 @@ export default function SlatkisPDFGenerator({ slatkis, kategorija, alergeni }) {
 
     // 3. Ručno podešavanje širine stupaca (ukupno cca 180mm za A4)
     columnStyles: {
-        0: { cellWidth: 35 }, // Naziv
-        1: { cellWidth: 35 }, // Opis
+        0: { cellWidth: 90 }, // Naziv
+        1: { cellWidth: 90 }, // Opis
     }
             });
         } else {
