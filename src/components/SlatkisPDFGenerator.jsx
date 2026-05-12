@@ -36,17 +36,17 @@ export default function SlatkisPDFGenerator({ slatkis, kategorija, alergeni }) {
         // Dodaj logo - konvertiraj SVG u tekst (jednostavna verzija)
         doc.setFontSize(20);
         doc.setTextColor(46, 125, 50); // Zelena boja iz loga
-        doc.text('SLATKISI', 20, 20);
+        doc.text('SLATKIŠI', 20, 20);
 
         doc.setFontSize(10);
         doc.setTextColor(102, 102, 102);
-        doc.text('EVIDENCIJA SLATKISA, KATEGORIJA I ALERGENA', 20, 27);
+        doc.text('EVIDENCIJA SLATKIŠA, KATEGORIJA I ALERGENA', 20, 27);
 
         // Naslov dokumenta
         doc.setFont('Roboto', 'bold');
         doc.setFontSize(16);
         doc.setTextColor(0, 0, 0);
-        doc.text('POPIS SLATKISA', 20, 45);
+        doc.text('POPIS SLATKIŠA', 20, 45);
 
         // Linija ispod naslova
         doc.setDrawColor(46, 125, 50);
@@ -58,7 +58,7 @@ export default function SlatkisPDFGenerator({ slatkis, kategorija, alergeni }) {
         // Podaci o slatkisu
         doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
-        doc.text('Podaci o slatkisu:', 20, yPosition);
+        doc.text('Podaci o slatkišu:', 20, yPosition);
         yPosition += 10;
 
         doc.setFontSize(11);
