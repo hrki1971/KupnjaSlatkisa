@@ -75,6 +75,7 @@ export default function KategorijaPregled() {
         async function inicijaliziraj() {
             const podaciSlatkisi = await SlatkisiService.get(); 
             await ucitajKategorije(podaciSlatkisi.data);    
+            setSlatkisi(podaciSlatkisi.data)
         }
         inicijaliziraj();
         
@@ -100,7 +101,7 @@ export default function KategorijaPregled() {
 
     async function dohvatiBrojSlatkisa(podaciSlatkisi,sifraKategorija){
         let brojac = 0
-        podaciSlatkisi.map((e)=>{
+        podaciSlatkisi && podaciSlatkisi.map((e)=>{
             //console.log(e)
             if(e.kategorija ==sifraKategorija){
                 brojac++
@@ -111,7 +112,7 @@ export default function KategorijaPregled() {
 
 
     async function obrisi(sifra) {
-      // debugger
+       
       
         
       
@@ -119,7 +120,7 @@ export default function KategorijaPregled() {
             return
         }
         await KategorijaService.obrisi(sifra)
-        ucitajKategorije()
+        ucitajKategorije(slatkisi)
     }
 
 
@@ -129,7 +130,7 @@ export default function KategorijaPregled() {
             className="btn btn-success w-100 mb-3 mt-3"> 
                 Dodaj novu kategoriju
             </Link>
-            <Table striped border hover>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th onClick={()=> handleSort('naziv')} style={{cursor: 'pointer'}}

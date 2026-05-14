@@ -2,6 +2,7 @@ const STORAGE_KEY = 'slatkisi';
 
 // Pomoćna funkcija za dohvaćanje podataka iz local storage-a
 function dohvatiSveIzStorage() {
+    //debugger
     const podaci = localStorage.getItem(STORAGE_KEY);
     return podaci ? JSON.parse(podaci) : [];
 }
@@ -56,6 +57,7 @@ async function promjeni(sifra, slatkis) {
 // 4/4 Delete - obriši
 async function obrisi(sifra) {
     let slatkisi = dohvatiSveIzStorage();
+    
     slatkisi = slatkisi.filter(s => s.sifra !== parseInt(sifra));
     spremiUStorage(slatkisi);
     return { message: 'Obrisano' };
